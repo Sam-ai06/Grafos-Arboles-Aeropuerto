@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.espol.proyecto_estructuras_de_datos/com.espol.proyecto_estructuras_de_datos.HelloApplication
+                                com.espol.proyecto_estructuras_de_datos/com.espol.proyecto_estructuras_de_datos.MainApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
