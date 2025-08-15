@@ -1,4 +1,4 @@
-package com.espol.proyecto_estructuras_de_datos;
+package com.espol.proyecto_estructuras_de_datos.Controladores;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
