@@ -36,7 +36,7 @@ public class MainViewController {
     @FXML
     protected void SwitchToViewAirports(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("com/espol/proyecto_estructuras_de_datos/VerAeropuertosView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/VerAeropuertosView.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
