@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class VerAeropuertosController {
     @FXML
-    private Button btn_salir, btn_editar, btn_eliminar, btn_trazar, btn_anadir;
+    private Button btn_salir, btn_editar, btn_eliminar, btn_trazar, btn_anadir, btn_conectarAero;
     //ya se implementó el método que va para salir
     //faltan los métodos para editar aeropuertos, eliminar aeropuertos(vertices), trazar rutas entre aeropuertos(dijkstra) y anadir aeropuertos
 
