@@ -17,6 +17,8 @@ public class MainViewController {
     private Label welcomeText;
     @FXML
     private Button btn_verAeropuertos;
+
+    //cambir a la vista principal de manejo del aeropuerto
     @FXML
     protected void SwitchToViewAirports(ActionEvent event) {
         try {

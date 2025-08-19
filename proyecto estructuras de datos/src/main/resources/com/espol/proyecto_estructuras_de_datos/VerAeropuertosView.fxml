@@ -9,22 +9,22 @@
    <children>
        <AnchorPane prefHeight="802.0" prefWidth="412.0" style="-fx-background-color: linear-gradient(to top, #70c6ff, #4797ff );">
          <children>
-            <Button layoutX="51.0" layoutY="178.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Trazar ruta" textAlignment="CENTER">
+            <Button fx:id="btn_trazar" layoutX="51.0" layoutY="178.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Trazar ruta" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Button>
-            <Button layoutX="49.0" layoutY="301.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Añadir aeropuerto" textAlignment="CENTER">
+            <Button fx:id="btn_anadir" layoutX="49.0" layoutY="301.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Añadir aeropuerto" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Button>
-            <Button layoutX="48.0" layoutY="426.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Eliminar aeropuerto" textAlignment="CENTER">
+            <Button fx:id="btn_eliminar" layoutX="48.0" layoutY="426.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Eliminar aeropuerto" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Button>
-            <Button layoutX="47.0" layoutY="557.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Editar vuelos" textAlignment="CENTER">
+            <Button fx:id="btn_editar" layoutX="47.0" layoutY="557.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40;" text="Editar vuelos" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
@@ -35,5 +35,10 @@
             <Font size="23.0" />
          </font>
       </TextArea>
+      <Button fx:id="btn_salir" layoutX="903.0" layoutY="717.0" mnemonicParsing="false" onAction="#switchToMainView" prefHeight="52.0" prefWidth="248.0" style="-fx-background-color: #DBDBDB; -fx-background-radius: 40;" text="Salir" textAlignment="CENTER" AnchorPane.rightAnchor="49.0">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
