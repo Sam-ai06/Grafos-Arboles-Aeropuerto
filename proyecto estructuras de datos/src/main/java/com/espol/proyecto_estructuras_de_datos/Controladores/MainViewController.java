@@ -16,23 +16,7 @@ public class MainViewController {
     @FXML
     private Label welcomeText;
     @FXML
-    private Button btn_crearAeropuerto, btn_verAeropuertos;
-
-    @FXML
-    protected void SwitchToAddAirport(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/AnadirAeropuertoView.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Proyecto | agregar aeropuerto");
-            stage.show();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-    }
-
+    private Button btn_verAeropuertos;
     @FXML
     protected void SwitchToViewAirports(ActionEvent event) {
         try {

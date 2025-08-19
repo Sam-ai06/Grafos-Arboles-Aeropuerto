@@ -8,32 +8,38 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F8FAFC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.MainViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #F8FAFC;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.MainViewController">
    <children>
-      <Rectangle fx:id="square2" arcHeight="25.0" arcWidth="25.0" fill="#70c6ffa9" height="285.0" layoutX="158.0" layoutY="646.0" rotate="107.5" stroke="TRANSPARENT" strokeType="INSIDE" width="285.0" />
-      <Rectangle fx:id="square" arcHeight="25.0" arcWidth="25.0" fill="#70c6ffa9" height="285.0" layoutX="-165.0" layoutY="283.0" rotate="24.0" stroke="TRANSPARENT" strokeType="INSIDE" width="285.0" />
-      <Label layoutX="489.0" layoutY="88.0" text="Bienvenido">
+      <!-- Elementos decorativos con posiciones relativas -->
+      <Rectangle fx:id="square2" arcHeight="25.0" arcWidth="25.0" fill="#70c6ffa9" height="200.0" layoutX="174.0" layoutY="637.0" rotate="107.5" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="-37.0" AnchorPane.leftAnchor="174.0" />
+
+      <Rectangle fx:id="square" arcHeight="25.0" arcWidth="25.0" fill="#70c6ffa9" height="200.0" layoutX="-97.0" layoutY="364.0" rotate="24.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" AnchorPane.leftAnchor="-97.0" AnchorPane.topAnchor="364.0" />
+
+      <!-- Label centrado horizontalmente -->
+      <Label fx:id="welcomeLabel" alignment="CENTER" prefHeight="120.0" text="Bienvenido" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="80.0">
          <font>
-            <Font size="64.0" />
+            <Font size="48.0" />
          </font>
       </Label>
-      <Rectangle fx:id="square1" arcHeight="25.0" arcWidth="25.0" fill="#4797ffc1" height="411.0" layoutX="-208.0" layoutY="516.0" rotate="-82.2" stroke="TRANSPARENT" strokeType="INSIDE" width="411.0" />
-      <Rectangle fx:id="square11" arcHeight="25.0" arcWidth="25.0" fill="#4797ffc1" height="64.0" layoutX="144.0" layoutY="442.0" rotate="37.9" stroke="TRANSPARENT" strokeType="INSIDE" width="66.0" />
-      <Rectangle fx:id="square3" arcHeight="25.0" arcWidth="25.0" fill="#70c6ffa9" height="46.0" layoutX="245.0" layoutY="437.0" rotate="-41.6" stroke="TRANSPARENT" strokeType="INSIDE" width="46.0" />
-      <Button fx:id="btn_verAeropuertos" layoutX="442.0" layoutY="422.0" mnemonicParsing="false" onAction="#SwitchToViewAirports" prefHeight="72.0" prefWidth="422.0" style="-fx-background-radius: 40; -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Ver aeropuertos">
+
+      <Rectangle fx:id="square1" arcHeight="25.0" arcWidth="25.0" fill="#4797ffc1" height="300.0" layoutX="-121.0" layoutY="567.0" rotate="-82.2" stroke="TRANSPARENT" strokeType="INSIDE" width="300.0" AnchorPane.bottomAnchor="-67.0" AnchorPane.leftAnchor="-121.0" />
+
+      <Rectangle fx:id="square11" arcHeight="25.0" arcWidth="25.0" fill="#4797ffc1" height="64.0" layoutX="125.0" layoutY="485.0" rotate="37.9" stroke="TRANSPARENT" strokeType="INSIDE" width="66.0" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="125.0" />
+
+      <Rectangle fx:id="square3" arcHeight="25.0" arcWidth="25.0" fill="#70c6ffa9" height="46.0" layoutX="215.8" layoutY="504.80000000000007" rotate="-41.6" stroke="TRANSPARENT" strokeType="INSIDE" width="46.0" AnchorPane.bottomAnchor="249.19999999999993" AnchorPane.leftAnchor="215.8" />
+
+      <!-- Botón centrado con anclajes -->
+      <Button fx:id="btn_verAeropuertos" layoutX="372.8" layoutY="430.20000000000005" mnemonicParsing="false" onAction="#SwitchToViewAirports" prefHeight="78.0" prefWidth="463.0" style="-fx-background-radius: 50; -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff ); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Empezar" textFill="WHITE" AnchorPane.bottomAnchor="291.4" AnchorPane.leftAnchor="372.8" AnchorPane.rightAnchor="364.79999999999995">
          <font>
-            <Font size="29.0" />
+            <Font size="36.0" />
          </font>
       </Button>
-      <ImageView fitHeight="683.0" fitWidth="683.0" layoutX="952.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true" rotate="84.9" style="-fx-opacity: 10%;">
+
+      <!-- Imagen de fondo -->
+      <ImageView fx:id="backgroundImage" fitHeight="600.0" fitWidth="600.0" layoutX="902.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true" rotate="84.9" style="-fx-opacity: 10%;" AnchorPane.rightAnchor="-302.0" AnchorPane.topAnchor="246.0">
          <image>
             <Image url="@../../../Images/graph.png" />
          </image>
       </ImageView>
-      <Button fx:id="btn_crearAeropuerto" layoutX="443.0" layoutY="514.0" mnemonicParsing="false" onAction="#SwitchToAddAirport" prefHeight="72.0" prefWidth="422.0" style="-fx-background-radius: 40; -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff);     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Crear nuevo aeropuerto">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
