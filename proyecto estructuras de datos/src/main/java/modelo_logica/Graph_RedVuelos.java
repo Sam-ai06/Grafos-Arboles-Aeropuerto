@@ -5,9 +5,12 @@
 package modelo_logica;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -44,6 +47,47 @@ public class Graph_RedVuelos {
         Vuelo v = new Vuelo(aerolinea,origen,destino,distancia, duracion, costo);
         origen.getVuelos().add(v);//si es dirigido basta con esa conexion
         return true;   
+    }
+    
+    public int viaje(Aeropuerto origen, Aeropuerto destino, List<Aeropuerto> aeropuertos) {
+        if (origen.equals(destino)) return 0;
+
+        // Inicializar distancias
+        Map<Aeropuerto, Integer> dist = new HashMap<>();
+        for (Aeropuerto a : aeropuertos) dist.put(a, Integer.MAX_VALUE);
+        dist.put(origen, 0);
+
+        // Cola de prioridad para seleccionar siempre el aeropuerto con menor distancia acumulada
+        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a, b) -> dist.get(a) - dist.get(b));
+        pq.add(origen);
+
+        while (!pq.isEmpty()) {
+            Aeropuerto u = pq.poll();
+            int d = dist.get(u);
+
+            if (u.equals(destino)) return d;
+
+            for (Vuelo vuelo : u.getVuelos()) {   
+                Aeropuerto vecino = vuelo.getDestino(); // Se obtiene el aeropuerto vecino
+                int peso = vuelo.getDistancia();  
+                int nuevo = d + peso;
+
+                if (nuevo < dist.get(vecino)) {
+                    dist.put(vecino, nuevo);
+                    pq.add(vecino);
+                }
+            }
+    }
+
+    return -1; // No hay camino posible
+}
+    
+    public boolean contieneaeropuerto(Aeropuerto a1,Aeropuerto a2){
+        Iterator<Vuelo> it= a1.getVuelos().iterator();
+        while(it.hasNext()){
+            if(it.next().getDestino().equals(a2)){return true;}
+        }
+        return false;
     }
     
     public List<Aeropuerto> getAeropuertos() {
