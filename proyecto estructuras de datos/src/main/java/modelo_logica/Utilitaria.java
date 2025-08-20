@@ -4,10 +4,12 @@
  */
 package modelo_logica;
 
+import java.util.Comparator;
+
 /**
  *
  * @author hp
  */
 public class Utilitaria {
-    //solo creado por si queremos poner un metodo global -> quizá un comparador ¿?
+    //solo creado por si queremos poner un metodo global
 }

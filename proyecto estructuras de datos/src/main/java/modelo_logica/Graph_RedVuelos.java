@@ -81,7 +81,7 @@ public class Graph_RedVuelos {
         return true;
     }
     
-    
+    //algoritmo de dijkstra
     public int viaje(Aeropuerto origen, Aeropuerto destino, List<Aeropuerto> aeropuertos) {
         if (origen.equals(destino)) return 0;
 

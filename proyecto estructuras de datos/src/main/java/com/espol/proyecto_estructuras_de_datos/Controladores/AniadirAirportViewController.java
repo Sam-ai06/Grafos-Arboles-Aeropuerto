@@ -1,0 +1,59 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
+ */
+package com.espol.proyecto_estructuras_de_datos.Controladores;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import modelo_logica.Aeropuerto;
+import modelo_logica.Graph_RedVuelos;
+
+/**
+ * FXML Controller class
+ *
+ * @author hp
+ */
+public class AniadirAirportViewController {
+
+   
+    @FXML
+    private Button btncancelar;
+    @FXML
+    private TextField text_name;
+    @FXML
+    private TextField text_codigo;
+    @FXML
+    private TextField text_pais;
+    @FXML
+    private TextField text_ciudad;
+    @FXML
+    private Button btnGuardar;
+
+    /**
+     * Initializes the controller class.
+     */
+   
+    @FXML
+    private void crearAeropuerto(ActionEvent event) {
+        //luego de crear el aeropuerto
+        Aeropuerto airport = new Aeropuerto(text_name.getText(),text_codigo.getText(),text_ciudad.getText(),text_pais.getText());
+        VerAeropuertosController.grafo.agregarAeropuerto(airport);//se creo de manera logica
+        Stage stage = (Stage) btnGuardar.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void cerrarVentana(ActionEvent event) {
+        // Obtiene la ventana actual a partir de cualquier control de esa ventana
+        Stage stage = (Stage) btncancelar.getScene().getWindow();
+        stage.close(); // cierra la ventana
+    }
+    
+}

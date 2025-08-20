@@ -11,16 +11,22 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
-public class MainViewController {
+public class MainViewController  {
     @FXML
     private Label welcomeText;
     @FXML
     private Button btn_verAeropuertos;
+    
+   
 
     //cambiar a la vista principal de manejo del aeropuerto
     @FXML
     protected void SwitchToViewAirports(ActionEvent event) {
+        
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/VerAeropuertosView.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
