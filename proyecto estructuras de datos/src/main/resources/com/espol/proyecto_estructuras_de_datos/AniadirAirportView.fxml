@@ -25,8 +25,8 @@
       <Text layoutX="51.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad" />
       <ButtonBar layoutX="291.0" layoutY="247.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#crearAeropuerto" text="Guardar" />
-            <Button fx:id="btncancelar" mnemonicParsing="false" onAction="#cerrarVentana" text="Cancelar" />
+          <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#crearAeropuerto" text="Guardar" style = "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);"/>
+            <Button fx:id="btncancelar" mnemonicParsing="false" onAction="#cerrarVentana" text="Cancelar" style = "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" />
         </buttons>
       </ButtonBar>
    </children>
