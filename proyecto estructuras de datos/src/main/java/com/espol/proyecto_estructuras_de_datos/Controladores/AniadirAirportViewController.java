@@ -35,6 +35,17 @@ public class AniadirAirportViewController {
     private TextField text_ciudad;
     @FXML
     private Button btnGuardar;
+    
+    private Graph_RedVuelos grafo_general;
+
+    public Graph_RedVuelos getGrafo_general() {
+        return grafo_general;
+    }
+
+    public void setGrafo_general(Graph_RedVuelos grafo_general) {
+        this.grafo_general = grafo_general;
+    }
+    
 
     /**
      * Initializes the controller class.
@@ -44,7 +55,7 @@ public class AniadirAirportViewController {
     private void crearAeropuerto(ActionEvent event) {
         //luego de crear el aeropuerto
         Aeropuerto airport = new Aeropuerto(text_name.getText(),text_codigo.getText(),text_ciudad.getText(),text_pais.getText());
-        VerAeropuertosController.grafo.agregarAeropuerto(airport);//se creo de manera logica
+        grafo_general.agregarAeropuerto(airport);//se creo de manera logica
         Stage stage = (Stage) btnGuardar.getScene().getWindow();
         stage.close();
     }

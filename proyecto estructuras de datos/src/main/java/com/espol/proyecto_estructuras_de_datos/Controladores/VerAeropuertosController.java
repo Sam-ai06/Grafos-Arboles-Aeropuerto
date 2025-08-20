@@ -29,7 +29,7 @@ public class VerAeropuertosController implements Initializable{
     private Button btn_salir, btn_editar, btn_eliminar, btn_trazar, btn_anadir, btn_conectarAero;
     @FXML
     private Pane espacio_grafo;
-    public static Graph_RedVuelos grafo;
+    public Graph_RedVuelos grafo;
     //ya se implementó el método que va para salir
     //faltan los métodos para editar aeropuertos, eliminar aeropuertos(vertices), trazar rutas entre aeropuertos(dijkstra) y anadir aeropuertos
     @Override
@@ -64,7 +64,9 @@ public class VerAeropuertosController implements Initializable{
             // Cargar el FXML de la ventana secundaria
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/AniadirAirportView.fxml"));
             Parent root = loader.load();
-
+            // PASO CLAVE: obtener el controlador de la nueva ventana
+            AniadirAirportViewController controller = loader.getController();
+            controller.setGrafo_general(grafo); // ingresamos nuestro grafo
             // Crear un nuevo Stage (ventana)
             Stage stage = new Stage();
             stage.setTitle("Agregar Aeropuerto");
