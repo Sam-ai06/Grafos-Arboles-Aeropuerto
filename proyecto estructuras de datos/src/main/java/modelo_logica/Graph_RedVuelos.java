@@ -48,6 +48,39 @@ public class Graph_RedVuelos {
         origen.getVuelos().add(v);//si es dirigido basta con esa conexion
         return true;   
     }
+    //Devuelve la cantidad de conexiones que tiene un aeropuerto
+    public int numconexionesaeropuerto(Aeropuerto a){
+        if(a==null||!AirportIsInGrafo(a)){return -1;}
+        int salida=a.getVuelos()!=null ? a.getVuelos().size():0;
+        return salida;
+    }
+    //Devuelve el aeropuerto que posee más conexiones
+    public Aeropuerto aeropuertomasconectado(){
+        if(aeropuertos.isEmpty()){return null;}
+        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a,b)->numconexionesaeropuerto(b)-numconexionesaeropuerto(a));
+        pq.addAll(aeropuertos);
+        Aeropuerto salida = pq.peek();
+        return salida;
+        
+    }
+    //elimina el aeropuerto y sus existencias en las listas vuelo
+    public boolean eliminaraeropuerto(Aeropuerto aeropuertoeliminar){
+        if(aeropuertoeliminar==null||!AirportIsInGrafo(aeropuertoeliminar)){return false;}
+        for(Aeropuerto aeropuerto: aeropuertos){
+            if(aeropuerto!=aeropuertoeliminar){
+                Iterator<Vuelo> it = aeropuerto.getVuelos().iterator();
+                while(it.hasNext()){
+                    Vuelo vueloact=it.next();
+                    if(vueloact.getDestino().equals(aeropuertoeliminar)){
+                        it.remove();
+                    }
+                }
+            }
+        }
+        aeropuertos.remove(aeropuertoeliminar);
+        return true;
+    }
+    
     
     public int viaje(Aeropuerto origen, Aeropuerto destino, List<Aeropuerto> aeropuertos) {
         if (origen.equals(destino)) return 0;
