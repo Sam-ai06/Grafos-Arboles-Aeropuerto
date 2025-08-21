@@ -114,6 +114,16 @@ public class Graph_RedVuelos {
 
     return -1; // No hay camino posible
 }
+    public Aeropuerto findAirport(String codigo){
+        if(codigo==null){return null;}
+        for (Aeropuerto aeropuertoact : aeropuertos) {
+            String airportcode=aeropuertoact.getCodigo();
+            if(airportcode.equals(codigo)){
+                return aeropuertoact;
+            }
+        }
+        return null;
+    }
     
     public boolean contieneaeropuerto(Aeropuerto a1,Aeropuerto a2){
         Iterator<Vuelo> it= a1.getVuelos().iterator();
