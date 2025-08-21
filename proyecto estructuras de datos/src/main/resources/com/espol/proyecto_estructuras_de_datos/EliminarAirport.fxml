@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="196.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.EliminarAirportController">
+   <children>
+      <Button fx:id="btn_enviar" layoutX="389.0" layoutY="140.0" mnemonicParsing="false" onAction="#eliminarAiportVista" text="Enviar" />
+      <Button fx:id="btn_cancelar" layoutX="319.0" layoutY="140.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Cancelar" />
+      <TextField fx:id="codigo_para_eliminar" layoutX="218.0" layoutY="62.0" prefHeight="31.0" prefWidth="178.0" />
+      <Text layoutX="67.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código IATA del aeropuerto: " wrappingWidth="159.46484375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

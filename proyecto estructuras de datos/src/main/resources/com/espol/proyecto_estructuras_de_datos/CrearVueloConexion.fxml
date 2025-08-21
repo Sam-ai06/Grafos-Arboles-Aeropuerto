@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="421.0" prefWidth="598.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.CrearVueloConexionController">
+   <children>
+      <Text layoutX="57.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingresa los datos del vuelo:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de destino: " />
+      <Text layoutX="63.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de origen:" />
+      <Text layoutX="61.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aerolínea" />
+      <Text layoutX="62.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia (en metros):" />
+      <Text layoutX="60.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duracion: " />
+      <Text layoutX="60.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Costo aproximado: " />
+      <TextField layoutX="287.0" layoutY="115.0" prefHeight="19.0" prefWidth="185.0" />
+      <TextField layoutX="287.0" layoutY="151.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField layoutX="287.0" layoutY="190.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField layoutX="287.0" layoutY="228.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField layoutX="288.0" layoutY="264.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField layoutX="288.0" layoutY="299.0" prefHeight="25.0" prefWidth="185.0" />
+      <Button fx:id="btn_conectar" layoutX="510.0" layoutY="367.0" mnemonicParsing="false" onAction="#conectarAeropuertosVista" text="Aceptar" />
+      <Button fx:id="btn_cancel" layoutX="439.0" layoutY="367.0" mnemonicParsing="false" onAction="#cerrar_ventana" text="Cancelar" />
+      <TextField layoutX="287.0" layoutY="80.0" prefHeight="25.0" prefWidth="185.0" />
+      <Text layoutX="57.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de vuelo:" />
+   </children>
+</AnchorPane>

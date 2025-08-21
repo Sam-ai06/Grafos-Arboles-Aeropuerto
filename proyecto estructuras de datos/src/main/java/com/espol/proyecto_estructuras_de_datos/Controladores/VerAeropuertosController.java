@@ -36,6 +36,7 @@ public class VerAeropuertosController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         //como es la vista principal al clicar en empezar se inicializa el grafo
             //comparador actual
+            //el codigo es unico por eso comparo codigos
         Comparator<Aeropuerto> cmp = (a1,a2)->{
             return a1.getCodigo().compareTo(a2.getCodigo());};
         grafo = new Graph_RedVuelos(cmp);
@@ -81,6 +82,7 @@ public class VerAeropuertosController implements Initializable{
 
         } catch (IOException ex) {
             ex.printStackTrace();
+            System.out.println("Error al agregarAeropuerto desde la vista");
         }
     }
     
@@ -112,7 +114,34 @@ public class VerAeropuertosController implements Initializable{
             Tooltip.install(nodo, new Tooltip(aeropuertos.get(i).getNombre()));
             espacio_grafo.getChildren().add(nodo);
         }
-}
+    
+    }
+    @FXML
+    public void eliminarAeropuerto(){
+        try {
+            // Cargar el FXML de la ventana secundaria 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/EliminarAirport.fxml"));
+            Parent root = loader.load();
+            // PASO CLAVE: obtener el controlador de la nueva ventana
+            EliminarAirportController ventana_actual = loader.getController();
+            ventana_actual.setGrafo(grafo);
+            // Crear un nuevo Stage (ventana)
+            Stage stage = new Stage();
+            stage.setTitle("Eliminar Aeropuerto");
+            stage.setScene(new Scene(root));
+
+            // Opcional: hacerla modal para bloquear la ventana principal
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Mostrar la ventana y esperar a que se cierre
+            stage.showAndWait();
+            actualizarGrafo();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println("Error al eliminarAeropuerto desde la vista");
+        }
+    }
 
 
 }
