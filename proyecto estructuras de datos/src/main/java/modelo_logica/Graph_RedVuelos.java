@@ -80,9 +80,53 @@ public class Graph_RedVuelos {
         aeropuertos.remove(aeropuertoeliminar);
         return true;
     }
+    public int duracionviaje(Aeropuerto origen, Aeropuerto destino){
+        if(origen.equals(destino)) return 0;  
+        Map<Aeropuerto, Integer> duracion= new HashMap<>();
+        for(Aeropuerto a: aeropuertos) duracion.put(a, Integer.MAX_VALUE);
+        duracion.put(origen, 0);
+        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>();
+        pq.offer(origen);
+        while(!pq.isEmpty()){
+            Aeropuerto aeropuertoact=pq.poll();
+            int duracionact=0;
+            if(aeropuertoact.equals(destino)) return 0;
+            for(Vuelo a:aeropuertoact.getVuelos()){
+                Aeropuerto vecino=a.getDestino();
+                int sumduracion=a.getDuracion()+duracionact;
+                if(sumduracion<duracion.get(vecino)){
+                    duracion.put(vecino, sumduracion);
+                    pq.offer(vecino);
+                }
+            }
+        }
+        return-1;
+    }
+    public int costoviaje(Aeropuerto origen, Aeropuerto destino){
+        if(origen.equals(destino)) return 0;
+        Map<Aeropuerto, Integer> costo= new HashMap<>();
+        for(Aeropuerto a: aeropuertos) costo.put(a, Integer.MAX_VALUE);
+        costo.put(origen, 0);
+        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>();
+        pq.offer(origen);
+        while(!pq.isEmpty()){
+            Aeropuerto aeropuertoact=pq.poll();
+            int costoact=0;
+            if(aeropuertoact.equals(destino)) return 0;
+            for(Vuelo a:aeropuertoact.getVuelos()){
+                Aeropuerto vecino=a.getDestino();
+                int sumcosto=a.getDuracion()+costoact;
+                if(sumcosto<costo.get(vecino)){
+                    costo.put(vecino, sumcosto);
+                    pq.offer(vecino);
+                }
+            }
+        }
+        return-1;
+    }
     
     //algoritmo de dijkstra
-    public int viaje(Aeropuerto origen, Aeropuerto destino, List<Aeropuerto> aeropuertos) {
+    public int viaje(Aeropuerto origen, Aeropuerto destino) {
         if (origen.equals(destino)) return 0;
 
         // Inicializar distancias
@@ -92,7 +136,7 @@ public class Graph_RedVuelos {
 
         // Cola de prioridad para seleccionar siempre el aeropuerto con menor distancia acumulada
         PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a, b) -> dist.get(a) - dist.get(b));
-        pq.add(origen);
+        pq.offer(origen);
 
         while (!pq.isEmpty()) {
             Aeropuerto u = pq.poll();
@@ -107,7 +151,7 @@ public class Graph_RedVuelos {
 
                 if (nuevo < dist.get(vecino)) {
                     dist.put(vecino, nuevo);
-                    pq.add(vecino);
+                    pq.offer(vecino);
                 }
             }
     }
