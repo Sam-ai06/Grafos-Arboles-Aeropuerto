@@ -67,11 +67,11 @@ public class Graph_RedVuelos {
     public boolean eliminaraeropuerto(Aeropuerto aeropuertoeliminar){
         if(aeropuertoeliminar==null||!AirportIsInGrafo(aeropuertoeliminar)){return false;}
         for(Aeropuerto aeropuerto: aeropuertos){
-            if(aeropuerto!=aeropuertoeliminar){
+            if(cmp.compare(aeropuerto, aeropuertoeliminar)!=0){
                 Iterator<Vuelo> it = aeropuerto.getVuelos().iterator();
                 while(it.hasNext()){
                     Vuelo vueloact=it.next();
-                    if(vueloact.getDestino().equals(aeropuertoeliminar)){
+                    if(cmp.compare(vueloact.getDestino(), aeropuertoeliminar)==0){
                         it.remove();
                     }
                 }
@@ -172,7 +172,7 @@ public class Graph_RedVuelos {
     public boolean contieneaeropuerto(Aeropuerto a1,Aeropuerto a2){
         Iterator<Vuelo> it= a1.getVuelos().iterator();
         while(it.hasNext()){
-            if(it.next().getDestino().equals(a2)){return true;}
+            if(cmp.compare(it.next().getDestino(), a2)==0){return true;}
         }
         return false;
     }
