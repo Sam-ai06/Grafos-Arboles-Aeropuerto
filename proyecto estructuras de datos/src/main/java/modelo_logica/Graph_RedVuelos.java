@@ -134,7 +134,7 @@ public class Graph_RedVuelos {
         Map<Aeropuerto, Integer> duracion= new HashMap<>();
         for(Aeropuerto a: aeropuertos) duracion.put(a, Integer.MAX_VALUE);
         duracion.put(origen, 0);
-        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a,b)->duracion.get(b)-duracion.get(a));
+        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a,b)->duracion.get(a)-duracion.get(b));
         pq.offer(origen);
         while(!pq.isEmpty()){
             Aeropuerto aeropuertoact=pq.poll();
@@ -156,7 +156,7 @@ public class Graph_RedVuelos {
         Map<Aeropuerto, Integer> costo= new HashMap<>();
         for(Aeropuerto a: aeropuertos) costo.put(a, Integer.MAX_VALUE);
         costo.put(origen, 0);
-        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a,b)->costo.get(b)-costo.get(a));
+        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a,b)->costo.get(a)-costo.get(b));
         pq.offer(origen);
         while(!pq.isEmpty()){
             Aeropuerto aeropuertoact=pq.poll();
