@@ -42,6 +42,7 @@ public class AniadirAirportViewController {
     private boolean esCampoVacio(TextField campo) {
         return campo.getText() == null || campo.getText().trim().isEmpty();
     }
+    //usado varias veces (para las validaciones de los campos que lo requieran)
 
     public Graph_RedVuelos getGrafo_general() {
         return grafo_general;
