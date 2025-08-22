@@ -45,11 +45,7 @@ public class AniadirAirportViewController {
     public void setGrafo_general(Graph_RedVuelos grafo_general) {
         this.grafo_general = grafo_general;
     }
-    
 
-    /**
-     * Initializes the controller class.
-     */
    
     @FXML
     private void crearAeropuerto(ActionEvent event) {
