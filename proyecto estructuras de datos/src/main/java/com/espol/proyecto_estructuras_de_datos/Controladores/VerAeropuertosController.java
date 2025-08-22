@@ -151,4 +151,20 @@ public class VerAeropuertosController implements Initializable{
         }
     }
 
+    @FXML
+    public void SwitchToConnectAirPortsView(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/CrearVueloConexion.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Conectar Aeropuertos");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            actualizarGrafo();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

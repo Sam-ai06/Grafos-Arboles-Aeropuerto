@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -22,9 +24,15 @@ import javafx.stage.Stage;
 public class CrearVueloConexionController {
     @FXML
     private Button btn_cancel, btn_cancelar;
+    @FXML
+    private Label lbl_msg;
+    @FXML
+    private TextField txtField_numeroVuelo, txtField_OriginCode, txtField_DestinyCode, txtField_Aerolinea, txtField_distancia, txtField_duracion, txtField_costo;
+
 
 
     public boolean conectarAeropuertosVista() {
+
         return true; //placeholder
     }
 

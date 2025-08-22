@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -10,28 +11,29 @@
    <children>
       <AnchorPane layoutY="-2.0" prefHeight="63.0" prefWidth="598.0" style="-fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );">
          <children>
-            <Text fill="WHITE" layoutX="53.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingreso de datos del vuelo">
+            <Text fill="WHITE" layoutX="53.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingreso de datos del vuelo para la conexión">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <Text layoutX="59.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de destino: " />
-      <Text layoutX="63.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de origen:" />
-      <Text layoutX="61.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aerolínea" />
-      <Text layoutX="62.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia (en metros):" />
-      <Text layoutX="60.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duracion: " />
-      <Text layoutX="60.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Costo aproximado: " />
-      <TextField layoutX="287.0" layoutY="115.0" prefHeight="19.0" prefWidth="185.0" />
-      <TextField layoutX="287.0" layoutY="151.0" prefHeight="25.0" prefWidth="185.0" />
-      <TextField layoutX="287.0" layoutY="190.0" prefHeight="25.0" prefWidth="185.0" />
-      <TextField layoutX="287.0" layoutY="228.0" prefHeight="25.0" prefWidth="185.0" />
-      <TextField layoutX="288.0" layoutY="264.0" prefHeight="25.0" prefWidth="185.0" />
-      <TextField layoutX="288.0" layoutY="299.0" prefHeight="25.0" prefWidth="185.0" />
+      <Text layoutX="59.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de destino: " />
+      <Text layoutX="63.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de origen:" />
+      <Text layoutX="61.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aerolínea" />
+      <Text layoutX="62.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia (en metros):" />
+      <Text layoutX="60.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duracion: " />
+      <Text layoutX="60.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Costo aproximado: " />
+      <TextField fx:id="txtField_OriginCode" layoutX="287.0" layoutY="141.0" prefHeight="19.0" prefWidth="185.0" />
+      <TextField fx:id="txtField_DestinyCode" layoutX="287.0" layoutY="177.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField fx:id="txtField_Aerolinea" layoutX="287.0" layoutY="216.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField fx:id="txtField_distancia" layoutX="287.0" layoutY="254.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField fx:id="txtField_duracion" layoutX="288.0" layoutY="290.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField fx:id="txtField_costo" layoutX="288.0" layoutY="325.0" prefHeight="25.0" prefWidth="185.0" />
       <Button fx:id="btn_conectar" layoutX="487.0" layoutY="367.0" mnemonicParsing="false" onAction="#conectarAeropuertosVista" prefHeight="25.0" prefWidth="80.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2); -fx-background-radius: 15; -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );" text="Aceptar" textFill="WHITE" />
       <Button fx:id="btn_cancel" layoutX="396.0" layoutY="367.0" mnemonicParsing="false" onAction="#cerrar_ventana" prefHeight="25.0" prefWidth="80.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2); -fx-background-radius: 15; -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );" text="Cancelar" textFill="WHITE" />
-      <TextField layoutX="287.0" layoutY="80.0" prefHeight="25.0" prefWidth="185.0" />
-      <Text layoutX="57.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de vuelo:" />
+      <TextField fx:id="txtField_numeroVuelo" layoutX="287.0" layoutY="106.0" prefHeight="25.0" prefWidth="185.0" />
+      <Text layoutX="57.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de vuelo:" />
+      <Label fx:id="lbl_msg" layoutX="58.0" layoutY="74.0" prefHeight="17.0" prefWidth="487.0" textFill="RED" />
    </children>
 </AnchorPane>
