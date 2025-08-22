@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo_logica.Aeropuerto;
@@ -24,7 +25,7 @@ public class AniadirAirportViewController {
 
    
     @FXML
-    private Button btncancelar;
+    private Button btncancelar, btnGuardar;
     @FXML
     private TextField text_name;
     @FXML
@@ -34,9 +35,13 @@ public class AniadirAirportViewController {
     @FXML
     private TextField text_ciudad;
     @FXML
-    private Button btnGuardar;
+    private Label label_msg;
     
     private Graph_RedVuelos grafo_general;
+
+    private boolean esCampoVacio(TextField campo) {
+        return campo.getText() == null || campo.getText().trim().isEmpty();
+    }
 
     public Graph_RedVuelos getGrafo_general() {
         return grafo_general;
@@ -45,15 +50,19 @@ public class AniadirAirportViewController {
     public void setGrafo_general(Graph_RedVuelos grafo_general) {
         this.grafo_general = grafo_general;
     }
-
    
     @FXML
     private void crearAeropuerto(ActionEvent event) {
-        //luego de crear el aeropuerto
-        Aeropuerto airport = new Aeropuerto(text_name.getText(),text_codigo.getText(),text_ciudad.getText(),text_pais.getText());
-        grafo_general.agregarAeropuerto(airport);//se creo de manera logica
-        Stage stage = (Stage) btnGuardar.getScene().getWindow();
-        stage.close();
+        if (esCampoVacio(text_ciudad) || esCampoVacio(text_codigo) || esCampoVacio(text_pais) || esCampoVacio(text_name)) {
+            label_msg.setText("Error. Debe rellenar todos los campos");
+        }
+        else{
+            //luego de crear el aeropuerto
+            Aeropuerto airport = new Aeropuerto(text_name.getText(),text_codigo.getText(),text_ciudad.getText(),text_pais.getText());
+            grafo_general.agregarAeropuerto(airport);//se creo de manera logica
+            Stage stage = (Stage) btnGuardar.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @FXML

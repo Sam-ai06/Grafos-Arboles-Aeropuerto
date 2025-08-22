@@ -18,7 +18,7 @@ import java.util.PriorityQueue;
  */
 public class Graph_RedVuelos {
     private List<Aeropuerto> aeropuertos;
-    //private boolean esDirigido; se omite porque este siempre será dirigido por literatura
+    //prívate boolean esDirigido; se omite porque este siempre será dirigido por literatura
     private Comparator<Aeropuerto> cmp;//para posibles metodos -> probablemente este cmp evalue nombre y codigo del aeropuerto así evito duplicados
     //pero no sé dónde se crearía ese cmp ¿?
     

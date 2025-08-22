@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -10,25 +11,26 @@
 <AnchorPane id="AnchorPane" prefHeight="307.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.AniadirAirportViewController">
    <children>
       <AnchorPane layoutX="-3.0" layoutY="-4.0" prefHeight="54.0" prefWidth="527.0" style="-fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );" />
-      <TextField fx:id="text_name" layoutX="157.0" layoutY="65.0" prefHeight="25.0" prefWidth="228.0" />
-      <TextField fx:id="text_codigo" layoutX="157.0" layoutY="113.0" prefHeight="25.0" prefWidth="228.0" />
-      <TextField fx:id="text_pais" layoutX="157.0" layoutY="157.0" prefHeight="25.0" prefWidth="228.0" />
-      <TextField fx:id="text_ciudad" layoutX="157.0" layoutY="208.0" prefHeight="25.0" prefWidth="228.0" />
+      <TextField fx:id="text_name" layoutX="158.0" layoutY="88.0" prefHeight="25.0" prefWidth="228.0" />
+      <TextField fx:id="text_codigo" layoutX="158.0" layoutY="136.0" prefHeight="25.0" prefWidth="228.0" />
+      <TextField fx:id="text_pais" layoutX="158.0" layoutY="180.0" prefHeight="25.0" prefWidth="228.0" />
+      <TextField fx:id="text_ciudad" layoutX="158.0" layoutY="226.0" prefHeight="25.0" prefWidth="228.0" />
       <Text fill="WHITE" layoutX="45.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingresa los siguientes datos del aeropuerto: ">
          <font>
             <Font name="Calibri" size="17.0" />
          </font>
       </Text>
       <Text layoutX="-80.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text layoutX="51.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
-      <Text layoutX="51.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código IATA" />
-      <Text layoutX="51.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="País" />
-      <Text layoutX="51.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad" />
+      <Text layoutX="52.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+      <Text layoutX="52.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código IATA" />
+      <Text layoutX="52.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="País" />
+      <Text layoutX="52.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad" />
       <ButtonBar layoutX="292.0" layoutY="253.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
             <Button fx:id="btncancelar" mnemonicParsing="false" onAction="#cerrarVentana" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2); -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff ); -fx-background-radius: 15;" text="Cancelar" textFill="WHITE" />
           <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#crearAeropuerto" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2); -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff ); -fx-background-radius: 15;" text="Guardar" textFill="WHITE" />
         </buttons>
       </ButtonBar>
+      <Label fx:id="label_msg" alignment="CENTER" layoutX="76.0" layoutY="58.0" prefHeight="17.0" prefWidth="398.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>

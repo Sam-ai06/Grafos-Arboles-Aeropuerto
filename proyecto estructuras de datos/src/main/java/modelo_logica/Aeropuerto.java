@@ -32,8 +32,6 @@ public class Aeropuerto{
     }
 
     
-  
-    
     public String getNombre() {
         return nombre;
     }

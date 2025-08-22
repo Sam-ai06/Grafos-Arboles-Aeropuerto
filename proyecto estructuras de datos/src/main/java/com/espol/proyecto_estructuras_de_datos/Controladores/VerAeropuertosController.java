@@ -7,13 +7,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
@@ -32,15 +32,7 @@ public class VerAeropuertosController implements Initializable{
     public Graph_RedVuelos grafo;
     //ya se implementó el método que va para salir
     //faltan los métodos para editar aeropuertos, eliminar aeropuertos(vertices), trazar rutas entre aeropuertos(dijkstra) y anadir aeropuertos
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //como es la vista principal al clicar en empezar se inicializa el grafo
-            //comparador actual
-            //el codigo es unico por eso comparo codigos
-        Comparator<Aeropuerto> cmp = (a1,a2)->{
-            return a1.getCodigo().compareTo(a2.getCodigo());};
-        grafo = new Graph_RedVuelos(cmp);
-    }  
+
 
     //cambiar a la vista principal
     @FXML
@@ -53,12 +45,28 @@ public class VerAeropuertosController implements Initializable{
             stage.setTitle("Proyecto | inicio");
             stage.show();
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
         }
-
     }
 
-    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //como es la vista principal al clicar en empezar se inicializa el grafo
+            //comparador actual
+            //el código es unico por eso comparo códigos
+        Comparator<Aeropuerto> cmp = (a1,a2)->{
+            return a1.getCodigo().compareTo(a2.getCodigo());};
+        grafo = new Graph_RedVuelos(cmp);
+        //metodos de inicialización del panel
+        configurarPanel();
+    }
+    //dibujar aristas - pendiente
+
+
+    //propios de la clase no deben salir de aquí
+    private void configurarPanel(){
+        espacio_grafo.setStyle("-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-width: 2; -fx-border-radius: 10;");
+    }
+
     @FXML
     private void agregarAeropuertoVista(ActionEvent event) {
         try {
@@ -142,6 +150,5 @@ public class VerAeropuertosController implements Initializable{
             System.out.println("Error al eliminarAeropuerto desde la vista");
         }
     }
-
 
 }
