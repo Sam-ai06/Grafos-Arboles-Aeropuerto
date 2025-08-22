@@ -30,9 +30,6 @@ public class EliminarAirportController  {
     private Button btn_cancelar;
     private Graph_RedVuelos grafo;
 
-    /**
-     * Initializes the controller class.
-     */
     @FXML
     private void cerrarVentana(ActionEvent event) {
         // Obtiene la ventana actual a partir de cualquier control de esa ventana

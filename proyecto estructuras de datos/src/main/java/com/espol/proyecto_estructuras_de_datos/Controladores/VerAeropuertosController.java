@@ -23,6 +23,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import modelo_logica.Aeropuerto;
 import modelo_logica.Graph_RedVuelos;
+import modelo_logica.Vuelo;
 
 public class VerAeropuertosController implements Initializable{
     @FXML
@@ -104,6 +105,8 @@ public class VerAeropuertosController implements Initializable{
         List<Aeropuerto> aeropuertos = grafo.getAeropuertos();
         if (aeropuertos.isEmpty()) return; // nada que dibujar
 
+        Map<Aeropuerto, double[]> posiciones = new HashMap<>();
+
         // Nodo central (primer aeropuerto)
         Aeropuerto central = aeropuertos.get(0);
         Circle nodoCentral = new Circle(centroX, centroY, 20, Color.RED);
@@ -122,8 +125,67 @@ public class VerAeropuertosController implements Initializable{
             Tooltip.install(nodo, new Tooltip(aeropuertos.get(i).getNombre()));
             espacio_grafo.getChildren().add(nodo);
         }
+
+        crearArcos(posiciones);
     
     }
+
+    private void crearArcos(Map<Aeropuerto,double[]> posiciones) {
+        for (Aeropuerto Origin : grafo.getAeropuertos()){
+            double[] posOrigin = posiciones.get(Origin);
+            if (posOrigin == null){
+                continue;
+            }
+            for (Vuelo vuelo : Origin.getVuelos()){
+                Aeropuerto Destiny = vuelo.getDestino();
+                double[] posDestiny = posiciones.get(Destiny);
+                if (posDestiny == null){
+                    continue;
+                }
+
+                //El arco en cuestión
+                Line arco = new Line(posOrigin[0], posOrigin[1], posDestiny[0], posDestiny[1]);
+                arco.setStroke(Color.BLACK);
+                arco.setStrokeWidth(2);
+                dibujarFlecha(arco, posOrigin, posDestiny);
+            }
+        }
+    }
+
+    private void dibujarFlecha(Line arco, double[] posOrigin, double[] posDestiny) {
+        double distanciaX = posDestiny[0] - posOrigin[0];
+        double distanciaY = posDestiny[1] - posOrigin[1];
+        double largo = Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
+        if (largo == 0){
+            return;
+        }
+        distanciaX /= largo;
+        distanciaY /= largo;
+
+        double FlechaX =  posDestiny[0] - distanciaX * 15;
+        double FlechaY = posDestiny[1] - distanciaY * 15;
+
+        arco.setEndX(FlechaX);
+        arco.setEndY(FlechaY);
+
+        //punta de la flecha
+        double ArrowLength = 10;
+        double arrowAngle = Math.PI / 6;
+        double x1 = FlechaX - ArrowLength * Math.cos(Math.atan2(distanciaY, distanciaX) - arrowAngle);
+        double y1 = FlechaY - ArrowLength * Math.sin(Math.atan2(distanciaY, distanciaX) - arrowAngle);
+        double x2 = FlechaX - ArrowLength * Math.cos(Math.atan2(distanciaY, distanciaX) + arrowAngle);
+        double y2 = FlechaY - ArrowLength * Math.sin(Math.atan2(distanciaY, distanciaX) + arrowAngle);
+
+        Line parte1 = new Line(FlechaX, FlechaY, x1, y1);
+        Line parte2 = new Line(FlechaX, FlechaY, x2, y2);
+        parte1.setStroke(Color.BLACK);
+        parte2.setStroke(Color.BLACK);
+        parte1.setStrokeWidth(2);
+        parte2.setStrokeWidth(2);
+        espacio_grafo.getChildren().addAll(parte1, parte2);
+
+    }
+
     @FXML
     public void eliminarAeropuerto(){
         try {
