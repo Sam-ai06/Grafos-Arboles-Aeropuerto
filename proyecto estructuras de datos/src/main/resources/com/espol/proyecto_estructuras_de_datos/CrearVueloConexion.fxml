@@ -6,14 +6,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="421.0" prefWidth="598.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.CrearVueloConexionController">
+<AnchorPane id="AnchorPane" prefHeight="421.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.CrearVueloConexionController">
    <children>
-      <Text layoutX="57.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingresa los datos del vuelo:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
+      <AnchorPane layoutY="-2.0" prefHeight="63.0" prefWidth="598.0" style="-fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );">
+         <children>
+            <Text fill="WHITE" layoutX="53.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingreso de datos del vuelo">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
       <Text layoutX="59.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de destino: " />
       <Text layoutX="63.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de origen:" />
       <Text layoutX="61.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aerolínea" />
@@ -26,8 +29,8 @@
       <TextField layoutX="287.0" layoutY="228.0" prefHeight="25.0" prefWidth="185.0" />
       <TextField layoutX="288.0" layoutY="264.0" prefHeight="25.0" prefWidth="185.0" />
       <TextField layoutX="288.0" layoutY="299.0" prefHeight="25.0" prefWidth="185.0" />
-      <Button fx:id="btn_conectar" layoutX="510.0" layoutY="367.0" mnemonicParsing="false" onAction="#conectarAeropuertosVista" text="Aceptar" />
-      <Button fx:id="btn_cancel" layoutX="439.0" layoutY="367.0" mnemonicParsing="false" onAction="#cerrar_ventana" text="Cancelar" />
+      <Button fx:id="btn_conectar" layoutX="487.0" layoutY="367.0" mnemonicParsing="false" onAction="#conectarAeropuertosVista" prefHeight="25.0" prefWidth="80.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2); -fx-background-radius: 15; -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );" text="Aceptar" textFill="WHITE" />
+      <Button fx:id="btn_cancel" layoutX="396.0" layoutY="367.0" mnemonicParsing="false" onAction="#cerrar_ventana" prefHeight="25.0" prefWidth="80.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2); -fx-background-radius: 15; -fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );" text="Cancelar" textFill="WHITE" />
       <TextField layoutX="287.0" layoutY="80.0" prefHeight="25.0" prefWidth="185.0" />
       <Text layoutX="57.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de vuelo:" />
    </children>

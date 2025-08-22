@@ -6,7 +6,13 @@ package com.espol.proyecto_estructuras_de_datos.Controladores;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -14,10 +20,21 @@ import javafx.fxml.Initializable;
  * @author hp
  */
 public class CrearVueloConexionController {
+    @FXML
+    private Button btn_cancel, btn_cancelar;
 
-    /**
-     * Initializes the controller class.
-     */
-    
-    
+
+    public boolean conectarAeropuertosVista() {
+        return true; //placeholder
+    }
+
+    public void cerrar_ventana(ActionEvent event){
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+    }
+
+
+
+
 }
