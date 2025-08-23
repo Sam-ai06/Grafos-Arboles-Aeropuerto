@@ -5,6 +5,7 @@ module com.espol.proyecto_estructuras_de_datos {
     requires java.base;
 
 
+
     opens com.espol.proyecto_estructuras_de_datos to javafx.fxml;
     exports com.espol.proyecto_estructuras_de_datos;
     exports com.espol.proyecto_estructuras_de_datos.Controladores;

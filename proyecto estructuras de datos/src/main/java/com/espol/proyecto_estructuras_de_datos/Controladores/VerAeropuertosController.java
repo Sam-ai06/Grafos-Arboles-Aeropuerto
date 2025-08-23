@@ -27,7 +27,7 @@ import modelo_logica.Vuelo;
 
 public class VerAeropuertosController implements Initializable{
     @FXML
-    private Button btn_salir, btn_editar, btn_eliminar, btn_trazar, btn_anadir, btn_conectarAero;
+    private Button btn_salir, btn_editar, btn_eliminar, btn_trazar, btn_anadir, btn_conectarAero, btn_eliminarVuelo;
     @FXML
     private Pane espacio_grafo;
     public Graph_RedVuelos grafo;
@@ -60,7 +60,7 @@ public class VerAeropuertosController implements Initializable{
         //metodos de inicialización del panel
         configurarPanel();
     }
-    //dibujar aristas - pendiente
+
 
 
     //propios de la clase no deben salir de aquí
@@ -211,6 +211,21 @@ public class VerAeropuertosController implements Initializable{
             ex.printStackTrace();
             System.out.println("Error al eliminarAeropuerto desde la vista");
         }
+    }
+
+    @FXML
+    public void eliminarVuelo() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/EliminarVueloView.fxml"));
+        Parent root = loader.load();
+        EliminarVueloController ventana = loader.getController();
+        ventana.setGrafo(grafo);
+        Stage stage = new Stage();
+        stage.setTitle("Eliminar Vuelo");
+        stage.setScene(new Scene(root));
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        actualizarGrafo();
     }
 
     @FXML
