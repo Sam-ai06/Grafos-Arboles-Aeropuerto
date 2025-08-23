@@ -194,7 +194,7 @@ public class VerAeropuertosController implements Initializable{
             Parent root = loader.load();
             // PASO CLAVE: obtener el controlador de la nueva ventana
             EliminarAirportController ventana_actual = loader.getController();
-            ventana_actual.setGrafo(grafo);
+            ventana_actual.setGrafo(grafo); //es importante setearle el grafo pq dará error
             // Crear un nuevo Stage (ventana)
             Stage stage = new Stage();
             stage.setTitle("Eliminar Aeropuerto");
@@ -218,6 +218,9 @@ public class VerAeropuertosController implements Initializable{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/CrearVueloConexion.fxml"));
             Parent root = loader.load();
+            //daba error porque nunca se seteo el grafo
+            CrearVueloConexionController ventana = loader.getController();
+            ventana.setGrafo(grafo);
             Stage stage = new Stage();
             stage.setTitle("Conectar Aeropuertos");
             stage.setScene(new Scene(root));
