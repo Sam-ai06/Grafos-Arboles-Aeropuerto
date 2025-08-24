@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+
 /**
  *
  * @author hp
@@ -106,6 +107,49 @@ public class Graph_RedVuelos {
         }
         return regresar;
     }
+    public List<Aeropuerto> rutaduracioncorta(Aeropuerto origen,Aeropuerto Destino){
+        int n = aeropuertos.size();
+        if (cmp.compare(origen, Destino) == 0) {
+            return null;
+        }
+        int[] duracion = new int[n];
+        int[] predecesor = new int[n];
+        boolean[] visitado = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            duracion[i] = Integer.MAX_VALUE;
+            predecesor[i] = -1;
+        }
+        int indiceinicio = aeropuertos.indexOf(origen);
+        int indicefinal = aeropuertos.indexOf(Destino);
+        duracion[indiceinicio] = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> duracion[a] - duracion[b]);
+        pq.offer(indiceinicio);
+        while (!pq.isEmpty()) {
+            int inicio = pq.poll();
+            int duracionact=duracion[inicio];
+            if (!visitado[inicio]) {
+                visitado[inicio] = true;
+            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
+                int vecino=aeropuertos.indexOf(vuelo.getDestino());
+                int duracionsuma=duracionact+vuelo.getDuracion();
+                if(duracionsuma<duracion[vecino]){
+                    duracion[vecino]=duracionsuma;
+                    predecesor[vecino]=inicio;
+                    pq.offer(vecino);
+                }
+            }
+            }
+        
+        }
+        if (duracion[indicefinal] == Integer.MAX_VALUE) {
+            return null;
+        }
+        List<Aeropuerto> regresar = new LinkedList<>();
+        for (int at = indicefinal; at != -1; at = predecesor[at]) {
+            regresar.addFirst(aeropuertos.get(at));
+        }
+        return regresar;
+    }
 
     // conectar aeropuertos/ crear vuelos
     public boolean crearConexion(Aeropuerto origen, Aeropuerto destino, String aerolinea, int distancia, int duracion,
@@ -161,95 +205,103 @@ public class Graph_RedVuelos {
         aeropuertos.remove(aeropuertoeliminar);
         return true;
     }
-
+    //da la duracion haciendo uso de la ruta
     public int duracionviaje(Aeropuerto origen, Aeropuerto destino) {
         if (cmp.compare(origen, destino) == 0)
             return 0;
-        Map<Aeropuerto, Integer> duracion = new HashMap<>();
-        for (Aeropuerto a : aeropuertos)
-            duracion.put(a, Integer.MAX_VALUE);
-        duracion.put(origen, 0);
-        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a, b) -> duracion.get(a) - duracion.get(b));
-        pq.offer(origen);
+        List<Aeropuerto>ruta=rutaduracioncorta( origen,  destino);
+        if (ruta == null || ruta.size() < 2) return -1;
+        int duracionTotal = 0;
+        for (int i = 0; i < ruta.size() - 1; i++) {
+            Aeropuerto actual = ruta.get(i);
+            Aeropuerto siguiente = ruta.get(i + 1);
+            for (Vuelo vueloact : actual.getVuelos()) {
+            if (cmp.compare(vueloact.getDestino(), siguiente)==0) {
+                duracionTotal += vueloact.getDuracion();}
+            }
+        
+        }
+        return duracionTotal;
+    }
+    public List<Aeropuerto> rutacostobajo(Aeropuerto origen, Aeropuerto Destino){
+        int n = aeropuertos.size();
+        if (cmp.compare(origen, Destino) == 0) {
+            return null;
+        }
+        int[] costo = new int[n];
+        int[] predecesor = new int[n];
+        boolean[] visitado = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            costo[i] = Integer.MAX_VALUE;
+            predecesor[i] = -1;
+        }
+        int indiceinicio = aeropuertos.indexOf(origen);
+        int indicefinal = aeropuertos.indexOf(Destino);
+        costo[indiceinicio] = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> costo[a] - costo[b]);
+        pq.offer(indiceinicio);
         while (!pq.isEmpty()) {
-            Aeropuerto aeropuertoact = pq.poll();
-            int duracionact = duracion.get(aeropuertoact);
-            if (cmp.compare(aeropuertoact, destino) == 0)
-                return duracionact;
-            for (Vuelo a : aeropuertoact.getVuelos()) {
-                Aeropuerto vecino = a.getDestino();
-                int sumduracion = a.getDuracion() + duracionact;
-                if (sumduracion < duracion.get(vecino)) {
-                    duracion.put(vecino, sumduracion);
+            int inicio = pq.poll();
+            int costoact=costo[inicio];
+            if (!visitado[inicio]) {
+                visitado[inicio] = true;
+            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
+                int vecino=aeropuertos.indexOf(vuelo.getDestino());
+                int costosuma=costoact+vuelo.getCosto();
+                if(costosuma<costo[vecino]){
+                    costo[vecino]=costosuma;
+                    predecesor[vecino]=inicio;
                     pq.offer(vecino);
                 }
             }
+            }
+        
         }
-        return -1;
+        if (costo[indicefinal] == Integer.MAX_VALUE) {
+            return null;
+        }
+        List<Aeropuerto> regresar = new LinkedList<>();
+        for (int at = indicefinal; at != -1; at = predecesor[at]) {
+            regresar.addFirst(aeropuertos.get(at));
+        }
+        return regresar;
     }
-
+    ///da el costo haciendo uso de la ruta
     public int costoviaje(Aeropuerto origen, Aeropuerto destino) {
         if (cmp.compare(origen, destino) == 0)
             return 0;
-        Map<Aeropuerto, Integer> costo = new HashMap<>();
-        for (Aeropuerto a : aeropuertos)
-            costo.put(a, Integer.MAX_VALUE);
-        costo.put(origen, 0);
-        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a, b) -> costo.get(a) - costo.get(b));
-        pq.offer(origen);
-        while (!pq.isEmpty()) {
-            Aeropuerto aeropuertoact = pq.poll();
-            int costoact = costo.get(aeropuertoact);
-            if (cmp.compare(aeropuertoact, destino) == 0)
-                return costoact;
-            for (Vuelo a : aeropuertoact.getVuelos()) {
-                Aeropuerto vecino = a.getDestino();
-                int sumcosto = a.getDuracion() + costoact;
-                if (sumcosto < costo.get(vecino)) {
-                    costo.put(vecino, sumcosto);
-                    pq.offer(vecino);
-                }
+        List<Aeropuerto>ruta=rutacostobajo( origen,  destino);
+        if (ruta == null || ruta.size() < 2) return -1;
+        int costoTotal = 0;
+        for (int i = 0; i < ruta.size() - 1; i++) {
+            Aeropuerto actual = ruta.get(i);
+            Aeropuerto siguiente = ruta.get(i + 1);
+            for (Vuelo vueloact : actual.getVuelos()) {
+            if (cmp.compare(vueloact.getDestino(), siguiente)==0) {
+                costoTotal += vueloact.getCosto();}
             }
+        
         }
-        return -1;
+        return costoTotal;
     }
 
-    // algoritmo de dijkstra
-    public int viaje(Aeropuerto origen, Aeropuerto destino) {
+    // da el la distancia haciendo uso de la ruta
+    public int distanciaviaje(Aeropuerto origen, Aeropuerto destino) {
         if (cmp.compare(origen, destino) == 0)
             return 0;
-
-        // Inicializar distancias
-        Map<Aeropuerto, Integer> dist = new HashMap<>();
-        for (Aeropuerto a : aeropuertos)
-            dist.put(a, Integer.MAX_VALUE);
-        dist.put(origen, 0);
-
-        // Cola de prioridad para seleccionar siempre el aeropuerto con menor distancia
-        // acumulada
-        PriorityQueue<Aeropuerto> pq = new PriorityQueue<>((a, b) -> dist.get(a) - dist.get(b));
-        pq.offer(origen);
-
-        while (!pq.isEmpty()) {
-            Aeropuerto actual = pq.poll();
-            int distact = dist.get(actual);
-
-            if (cmp.compare(actual, destino) == 0)
-                return distact;
-
-            for (Vuelo vuelo : actual.getVuelos()) {
-                Aeropuerto vecino = vuelo.getDestino(); // Se obtiene el aeropuerto vecino
-                int peso = vuelo.getDistancia();
-                int nuevo = distact + peso;
-
-                if (nuevo < dist.get(vecino)) {
-                    dist.put(vecino, nuevo);
-                    pq.offer(vecino);
-                }
+        List<Aeropuerto>ruta=rutadistanciacorta( origen,  destino);
+        if (ruta == null || ruta.size() < 2) return -1;
+        int distanciatotal = 0;
+        for (int i = 0; i < ruta.size() - 1; i++) {
+            Aeropuerto actual = ruta.get(i);
+            Aeropuerto siguiente = ruta.get(i + 1);
+            for (Vuelo vueloact : actual.getVuelos()) {
+            if (cmp.compare(vueloact.getDestino(), siguiente)==0) {
+                distanciatotal += vueloact.getDistancia();}
             }
+        
         }
-
-        return -1; // No hay camino posible
+        return distanciatotal;
     }
 
     public Aeropuerto findAirport(String codigo) {
