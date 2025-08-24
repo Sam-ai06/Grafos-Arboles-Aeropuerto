@@ -11,6 +11,7 @@ import modelo_logica.Graph_RedVuelos;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import modelo_logica.Aeropuerto;
 
 public class TrazarRutaMasCortaController implements Initializable {
     @FXML
@@ -58,6 +59,9 @@ public class TrazarRutaMasCortaController implements Initializable {
             case "Distancia":
                 // Lógica para trazar la ruta más corta basada en distancia
                 lbl_msg.setText("Trazando ruta más corta por Distancia...");
+                Aeropuerto origen = grafo.findAirport(txt_OriginPort.getText().trim());
+                Aeropuerto destino = grafo.findAirport(txt_DestinationPort.getText().trim());
+                grafo.rutaduracioncortaauxiliar(origen, Destino)
                 break;
             case "Tiempo":
                 // Lógica para trazar la ruta más corta basada en tiempo
