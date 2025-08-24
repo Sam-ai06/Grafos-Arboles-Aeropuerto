@@ -14,7 +14,7 @@
       </Button>
        <AnchorPane layoutX="-2.0" prefHeight="800.0" prefWidth="412.0" style="-fx-background-color: linear-gradient(to top, #70c6ff, #4797ff );">
          <children>
-            <Button fx:id="btn_trazar" layoutX="51.0" layoutY="66.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Trazar ruta" textAlignment="CENTER">
+            <Button fx:id="btn_trazar" layoutX="51.0" layoutY="66.0" mnemonicParsing="false" onAction="#SwitchToTrazarRutasView" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Trazar ruta" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>

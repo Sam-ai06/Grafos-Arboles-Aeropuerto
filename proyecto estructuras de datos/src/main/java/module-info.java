@@ -3,7 +3,6 @@ module com.espol.proyecto_estructuras_de_datos {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.base;
-    requires com.espol.proyecto_estructuras_de_datos;
 
 
     opens com.espol.proyecto_estructuras_de_datos to javafx.fxml;
