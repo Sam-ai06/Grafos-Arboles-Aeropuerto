@@ -41,7 +41,7 @@ public class EliminarVueloController {
                 lbl_msg.setText("Error. Debe rellenar el campo.");
                 return;
             }
-            //grafo.eliminarVuelo(txt_eliminar.getText().trim()); metodo pendiente por implementar
+            grafo.eliminarVuelo(txt_eliminar.getText().trim()); //metodo pendiente por implementar
             //color del label a verde
             lbl_msg.setStyle("-fx-text-fill: green;");
             lbl_msg.setText("Vuelo eliminado con éxito");

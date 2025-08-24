@@ -68,7 +68,7 @@ public class AniadirAirportViewController {
             String pais = text_pais.getText();
             Aeropuerto airport = new Aeropuerto(name,codigo,ciudad,pais);
             grafo_general.agregarAeropuerto(airport);//se creo de manera logica
-            //hay que guradrlo en archivo
+            //hay que guradrlo en archivo aqui solo se añade la linea
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/Persistencia_Archivos/aeropuertos.txt",true))) {
                 writer.write(name+","+codigo+","+ciudad+","+pais+"\n");
             } catch (IOException e) {

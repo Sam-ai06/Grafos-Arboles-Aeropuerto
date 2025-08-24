@@ -1,7 +1,9 @@
 package com.espol.proyecto_estructuras_de_datos.Controladores;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import modelo_logica.Aeropuerto;
 import modelo_logica.Graph_RedVuelos;
 import modelo_logica.Vuelo;
@@ -35,6 +38,8 @@ public class VerAeropuertosController implements Initializable{
     public Graph_RedVuelos grafo;
     //ya se implementó el método que va para salir
     //faltan los métodos para editar aeropuertos, eliminar aeropuertos(vertices), trazar rutas entre aeropuertos(dijkstra) y anadir aeropuertos
+    @FXML
+    private Button btn_editar_aeropuerto;
 
 
     //cambiar a la vista principal
@@ -63,6 +68,8 @@ public class VerAeropuertosController implements Initializable{
         
         //metodos de inicialización del panel
         configurarPanel();
+        
+
         espacio_grafo.boundsInLocalProperty().addListener((obs, oldBounds, newBounds) -> {
         if (newBounds.getWidth() > 0 && newBounds.getHeight() > 0) {
             actualizarGrafo();
@@ -256,6 +263,7 @@ public class VerAeropuertosController implements Initializable{
 
             // Mostrar la ventana y esperar a que se cierre
             stage.showAndWait();
+            escribirAeropuertos();
             actualizarGrafo();
 
         } catch (IOException ex) {
@@ -276,6 +284,7 @@ public class VerAeropuertosController implements Initializable{
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        
         actualizarGrafo();
     }
 
@@ -325,6 +334,22 @@ public class VerAeropuertosController implements Initializable{
         } catch (IOException e) {
             System.err.println("Error leyendo archivo: " + e.getMessage());
         }
+    }
+    //este metodo se usa para cuando quiera eliminar o modificar un aeropuerto, se debe reescribir todo
+    public void escribirAeropuertos(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/Persistencia_Archivos/aeropuertos.txt"))) {
+                for(Aeropuerto ae: grafo.getAeropuertos()){
+                    writer.write(ae.getNombre()+","+ae.getCodigo()+","+ae.getCiudad()+","+ae.getPais()+"\n");
+                }
+            
+            } catch (IOException e) {
+                System.err.println("Error escribiendo archivo: " + e.getMessage());
+            }
+    }
+    @FXML
+    private void editar_aeropuerto(ActionEvent event) {
+        //esta linea va al final igual que en eliminar
+        escribirAeropuertos();
     }
 
 }
