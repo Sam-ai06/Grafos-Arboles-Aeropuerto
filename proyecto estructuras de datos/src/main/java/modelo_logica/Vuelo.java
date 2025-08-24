@@ -19,7 +19,7 @@ public class Vuelo {
     private int distancia;
     private int duracion;
     private int costo;
-    // numero de vuelo
+    // Número de vuelo - usado para la vista eliminar vuelo
     private String numeroVuelo;
 
     public Vuelo(String aerolinea, Aeropuerto origen, Aeropuerto destino, int distancia, int duracion, int costo) {
