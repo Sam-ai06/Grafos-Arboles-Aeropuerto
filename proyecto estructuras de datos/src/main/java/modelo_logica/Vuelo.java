@@ -12,13 +12,17 @@ public class Vuelo {
     private String aerolinea;
    
     //origen
+
+    // origen
     private Aeropuerto origen;
-    //destino
+    // destino
     private Aeropuerto destino;
-    //pesos
+    // pesos
     private int distancia;
     private int duracion;
     private int costo;
+    // Número de vuelo - usado para la vista eliminar vuelo
+    private String numeroVuelo;
 
     public Vuelo(String aerolinea, Aeropuerto origen, Aeropuerto destino, int distancia, int duracion, int costo) {
         this.aerolinea = aerolinea;
@@ -30,13 +34,9 @@ public class Vuelo {
     }
 
     public Vuelo(Aeropuerto origen, Aeropuerto destino) {
-        this (null, origen, destino , 0, 0,0);
+        this(null, origen, destino, 0, 0, 0);
     }
-    
-    
 
-    
-    
     public String getAerolinea() {
         return aerolinea;
     }
@@ -84,9 +84,13 @@ public class Vuelo {
     public void setCosto(int costo) {
         this.costo = costo;
     }
-    
-    
-    
-    
-    
+
+    public String getNumeroVuelo() {
+        return numeroVuelo;
+    }
+
+    public void setNumeroVuelo(String numeroVuelo) {
+        this.numeroVuelo = numeroVuelo;
+    }
+
 }
