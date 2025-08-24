@@ -152,13 +152,10 @@ public class Graph_RedVuelos {
     }
 
     // conectar aeropuertos/ crear vuelos
-    public boolean crearConexion(Aeropuerto origen, Aeropuerto destino, String aerolinea, int distancia, int duracion,
-            int costo, String numeroVuelo) {
+    public boolean crearConexion(Aeropuerto origen, Aeropuerto destino, String aerolinea, int distancia, int duracion, int costo, String numeroVuelo) {
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(destino))
             return false;
-        Vuelo v = new Vuelo(aerolinea, origen, destino, distancia, duracion, costo);
-
-        v.setNumeroVuelo(numeroVuelo);
+        Vuelo v = new Vuelo(numeroVuelo, aerolinea, origen, destino, distancia, duracion, costo);
         origen.getVuelos().add(v);// si es dirigido basta con esa conexion
         return true;
     }
