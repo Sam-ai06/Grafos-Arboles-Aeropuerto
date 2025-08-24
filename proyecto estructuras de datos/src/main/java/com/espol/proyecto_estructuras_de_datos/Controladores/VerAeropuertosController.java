@@ -1,5 +1,7 @@
 package com.espol.proyecto_estructuras_de_datos.Controladores;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,11 +56,18 @@ public class VerAeropuertosController implements Initializable{
         //como es la vista principal al clicar en empezar se inicializa el grafo
             //comparador actual
             //el código es unico por eso comparo códigos
-        Comparator<Aeropuerto> cmp = (a1,a2)->{
-            return a1.getCodigo().compareTo(a2.getCodigo());};
+        
+        Comparator<Aeropuerto> cmp = (a1,a2)->{ return a1.getCodigo().compareTo(a2.getCodigo());};
         grafo = new Graph_RedVuelos(cmp);
+        leerAeropuertos("src/main/resources/Persistencia_Archivos/aeropuertos.txt");
+        
         //metodos de inicialización del panel
         configurarPanel();
+        espacio_grafo.boundsInLocalProperty().addListener((obs, oldBounds, newBounds) -> {
+        if (newBounds.getWidth() > 0 && newBounds.getHeight() > 0) {
+            actualizarGrafo();
+        }
+        });
     }
 
 
@@ -94,25 +103,39 @@ public class VerAeropuertosController implements Initializable{
             System.out.println("Error al agregarAeropuerto desde la vista");
         }
     }
-    
+
     public void actualizarGrafo() {
         espacio_grafo.getChildren().clear(); // borra dibujo anterior
-
         double centroX = espacio_grafo.getWidth() / 2;
         double centroY = espacio_grafo.getHeight() / 2;
         double radio = Math.min(centroX, centroY) - 50; // margen
-
         List<Aeropuerto> aeropuertos = grafo.getAeropuertos();
         if (aeropuertos.isEmpty()) return; // nada que dibujar
+
+        // Calcular tamaños dinámicos según cantidad de aeropuertos
+        double radioCentral, radioSecundario;
+        int numAeropuertos = aeropuertos.size();
+
+        if (numAeropuertos <= 5) {
+            radioCentral = 20;
+            radioSecundario = 15;
+        } else if (numAeropuertos <= 10) {
+            radioCentral = 16;
+            radioSecundario = 12;
+        } else if (numAeropuertos <= 20) {
+            radioCentral = 12;
+            radioSecundario = 9;
+        } else {
+            radioCentral = 8;
+            radioSecundario = 6;
+        }
 
         Map<Aeropuerto, double[]> posiciones = new HashMap<>();
 
         // Nodo central (primer aeropuerto)
         Aeropuerto central = aeropuertos.get(0);
-        Circle nodoCentral = new Circle(centroX, centroY, 20, Color.RED);
-        // opcional: poner tooltip o texto con el nombre del aeropuerto
-        Tooltip.install(nodoCentral, new Tooltip(central.getNombre()));
-        espacio_grafo.getChildren().add(nodoCentral);
+        double [] pos_central = {centroX, centroY};
+        posiciones.put(central, pos_central);
 
         // Aeropuertos secundarios
         int n = aeropuertos.size() - 1; // excluyendo el central
@@ -120,55 +143,85 @@ public class VerAeropuertosController implements Initializable{
             double angle = 2 * Math.PI * (i - 1) / n; // distribuir uniformemente
             double x = centroX + radio * Math.cos(angle);
             double y = centroY + radio * Math.sin(angle);
-
-            Circle nodo = new Circle(x, y, 15, Color.BLUE);
-            Tooltip.install(nodo, new Tooltip(aeropuertos.get(i).getNombre()));
-            espacio_grafo.getChildren().add(nodo);
+            double [] pos = {x, y};
+            posiciones.put(aeropuertos.get(i), pos);
         }
 
-        crearArcos(posiciones);
-    
+        // Primero crear las aristas (para que queden atrás)
+        crearArcos(posiciones, radioCentral, radioSecundario);
+
+        // Después crear los nodos (para que queden adelante)
+        Circle nodoCentral = new Circle(centroX, centroY, radioCentral, Color.RED);
+        Tooltip.install(nodoCentral, new Tooltip(central.getNombre()+"\n"+central.getCodigo()));
+        espacio_grafo.getChildren().add(nodoCentral);
+
+        for (int i = 1; i < aeropuertos.size(); i++) {
+            double[] pos = posiciones.get(aeropuertos.get(i));
+            Circle nodo = new Circle(pos[0], pos[1], radioSecundario, Color.BLUE);
+            Tooltip.install(nodo, new Tooltip(aeropuertos.get(i).getNombre()+"\n"+aeropuertos.get(i).getCodigo()));
+            espacio_grafo.getChildren().add(nodo);
+        }
     }
 
-    private void crearArcos(Map<Aeropuerto,double[]> posiciones) {
-        for (Aeropuerto Origin : grafo.getAeropuertos()){
+    private void crearArcos(Map<Aeropuerto, double[]> posiciones, double radioCentral, double radioSecundario) {
+        for (Aeropuerto Origin : grafo.getAeropuertos()) {
             double[] posOrigin = posiciones.get(Origin);
-            if (posOrigin == null){
+            if (posOrigin == null) {
                 continue;
             }
-            for (Vuelo vuelo : Origin.getVuelos()){
+            for (Vuelo vuelo : Origin.getVuelos()) {
                 Aeropuerto Destiny = vuelo.getDestino();
                 double[] posDestiny = posiciones.get(Destiny);
-                if (posDestiny == null){
+                if (posDestiny == null) {
                     continue;
                 }
 
-                //El arco en cuestión
-                Line arco = new Line(posOrigin[0], posOrigin[1], posDestiny[0], posDestiny[1]);
+                // Calcular el radio del nodo según si es central o no
+                double radioOrigen = (Origin == grafo.getAeropuertos().get(0)) ? radioCentral : radioSecundario;
+                double radioDestino = (Destiny == grafo.getAeropuertos().get(0)) ? radioCentral : radioSecundario;
+
+                // Calcular vector direccional
+                double distanciaX = posDestiny[0] - posOrigin[0];
+                double distanciaY = posDestiny[1] - posOrigin[1];
+                double largo = Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
+                if (largo == 0) {
+                    continue;
+                }
+                distanciaX /= largo;
+                distanciaY /= largo;
+
+                // Ajustar puntos de inicio y fin para que no se superpongan con los nodos
+                double inicioX = posOrigin[0] + distanciaX * radioOrigen;
+                double inicioY = posOrigin[1] + distanciaY * radioOrigen;
+                double finX = posDestiny[0] - distanciaX * radioDestino;
+                double finY = posDestiny[1] - distanciaY * radioDestino;
+
+                // El arco en cuestión
+                Line arco = new Line(inicioX, inicioY, finX, finY);
                 arco.setStroke(Color.BLACK);
                 arco.setStrokeWidth(2);
-                dibujarFlecha(arco, posOrigin, posDestiny);
+                espacio_grafo.getChildren().add(arco);
+                Tooltip.install(arco, new Tooltip(vuelo.getNumeroVuelo()+"\n"+vuelo.getDistancia()+"km"+"\n"+vuelo.getAerolinea()));
+                dibujarFlecha(arco, posOrigin, posDestiny, radioDestino);
             }
         }
     }
 
-    private void dibujarFlecha(Line arco, double[] posOrigin, double[] posDestiny) {
+    private void dibujarFlecha(Line arco, double[] posOrigin, double[] posDestiny, double radioDestino) {
         double distanciaX = posDestiny[0] - posOrigin[0];
         double distanciaY = posDestiny[1] - posOrigin[1];
         double largo = Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
-        if (largo == 0){
+        if (largo == 0) {
             return;
         }
         distanciaX /= largo;
         distanciaY /= largo;
 
-        double FlechaX =  posDestiny[0] - distanciaX * 15;
-        double FlechaY = posDestiny[1] - distanciaY * 15;
+        // Punto donde va la punta de la flecha (en el borde del nodo destino)
+        double FlechaX = posDestiny[0] - distanciaX * radioDestino;
+        double FlechaY = posDestiny[1] - distanciaY * radioDestino;
 
-        arco.setEndX(FlechaX);
-        arco.setEndY(FlechaY);
-
-        //punta de la flecha
+        // Punta de la flecha
         double ArrowLength = 10;
         double arrowAngle = Math.PI / 6;
         double x1 = FlechaX - ArrowLength * Math.cos(Math.atan2(distanciaY, distanciaX) - arrowAngle);
@@ -183,9 +236,7 @@ public class VerAeropuertosController implements Initializable{
         parte1.setStrokeWidth(2);
         parte2.setStrokeWidth(2);
         espacio_grafo.getChildren().addAll(parte1, parte2);
-
     }
-
     @FXML
     public void eliminarAeropuerto(){
         try {
@@ -250,7 +301,7 @@ public class VerAeropuertosController implements Initializable{
     @FXML
     public void SwitchToTrazarRutasView(ActionEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/TrazarRutasView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/TrazarRutaMasCortaView.fxml"));
             Parent root = loader.load();
             TrazarRutaMasCortaController ventana = loader.getController();
             ventana.setGrafo(grafo);
@@ -262,6 +313,17 @@ public class VerAeropuertosController implements Initializable{
             actualizarGrafo();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+    public void leerAeropuertos(String ruta){
+        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String [] airport_info = linea.strip().split(",");
+                grafo.getAeropuertos().add(new Aeropuerto(airport_info[0],airport_info[1],airport_info[2],airport_info[3]));
+            }
+        } catch (IOException e) {
+            System.err.println("Error leyendo archivo: " + e.getMessage());
         }
     }
 

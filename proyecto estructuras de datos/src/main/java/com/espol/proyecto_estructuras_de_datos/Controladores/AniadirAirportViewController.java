@@ -4,6 +4,9 @@
  */
 package com.espol.proyecto_estructuras_de_datos.Controladores;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -59,8 +62,18 @@ public class AniadirAirportViewController {
         }
         else{
             //luego de crear el aeropuerto
-            Aeropuerto airport = new Aeropuerto(text_name.getText(),text_codigo.getText(),text_ciudad.getText(),text_pais.getText());
+            String name = text_name.getText();
+            String codigo = text_codigo.getText();
+            String ciudad = text_ciudad.getText();
+            String pais = text_pais.getText();
+            Aeropuerto airport = new Aeropuerto(name,codigo,ciudad,pais);
             grafo_general.agregarAeropuerto(airport);//se creo de manera logica
+            //hay que guradrlo en archivo
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/Persistencia_Archivos/aeropuertos.txt",true))) {
+                writer.write(name+","+codigo+","+ciudad+","+pais+"\n");
+            } catch (IOException e) {
+                System.err.println("Error escribiendo archivo: " + e.getMessage());
+            }
             Stage stage = (Stage) btnGuardar.getScene().getWindow();
             stage.close();
         }
