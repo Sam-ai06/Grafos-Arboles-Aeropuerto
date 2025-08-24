@@ -150,15 +150,65 @@ public class Graph_RedVuelos {
         }
         return regresar;
     }
+    public List<Vuelo> rutaduracioncortaauxiliar(Aeropuerto origen,Aeropuerto Destino){
+        int n = aeropuertos.size();
+        if (cmp.compare(origen, Destino) == 0) {
+            return null;
+        }
+        int[] duracion = new int[n];
+        int[] predecesor = new int[n];
+        boolean[] visitado = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            duracion[i] = Integer.MAX_VALUE;
+            predecesor[i] = -1;
+        }
+        int indiceinicio = aeropuertos.indexOf(origen);
+        int indicefinal = aeropuertos.indexOf(Destino);
+        duracion[indiceinicio] = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> duracion[a] - duracion[b]);
+        pq.offer(indiceinicio);
+        while (!pq.isEmpty()) {
+            int inicio = pq.poll();
+            int duracionact=duracion[inicio];
+            if (!visitado[inicio]) {
+                visitado[inicio] = true;
+            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
+                int vecino=aeropuertos.indexOf(vuelo.getDestino());
+                int duracionsuma=duracionact+vuelo.getDuracion();
+                if(duracionsuma<duracion[vecino]){
+                    duracion[vecino]=duracionsuma;
+                    predecesor[vecino]=inicio;
+                    pq.offer(vecino);
+                }
+            }
+            }
+        
+        }
+        if (duracion[indicefinal] == Integer.MAX_VALUE) {
+            return null;
+        }
+        List<Aeropuerto> regresar = new LinkedList<>();
+        for (int at = indicefinal; at != -1; at = predecesor[at]) {
+            regresar.addFirst(aeropuertos.get(at));
+        }
+        List<Vuelo> vuelosregresar = new LinkedList<>();
+        for (int i = 0; i < regresar.size() - 1; i++) {
+            Aeropuerto actual = regresar.get(i);
+            Aeropuerto siguiente = regresar.get(i + 1);
+            for (Vuelo vueloact : actual.getVuelos()) {
+            if (cmp.compare(vueloact.getDestino(), siguiente)==0) {
+                vuelosregresar.add(vueloact);
+            }
+        }
+        }
+        return vuelosregresar;
+    }
 
     // conectar aeropuertos/ crear vuelos
-    public boolean crearConexion(Aeropuerto origen, Aeropuerto destino, String aerolinea, int distancia, int duracion,
-            int costo, String numeroVuelo) {
+    public boolean crearConexion(Aeropuerto origen, Aeropuerto destino, String aerolinea, int distancia, int duracion, int costo, String numeroVuelo) {
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(destino))
             return false;
-        Vuelo v = new Vuelo(aerolinea, origen, destino, distancia, duracion, costo);
-
-        v.setNumeroVuelo(numeroVuelo);
+        Vuelo v = new Vuelo(numeroVuelo, aerolinea, origen, destino, distancia, duracion, costo);
         origen.getVuelos().add(v);// si es dirigido basta con esa conexion
         return true;
     }

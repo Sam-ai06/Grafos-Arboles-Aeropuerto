@@ -42,6 +42,28 @@ public class VerAeropuertosController implements Initializable{
     private Button btn_editar_aeropuerto;
 
 
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //como es la vista principal al clicar en empezar se inicializa el grafo
+            //comparador actual
+            //el código es unico por eso comparo códigos
+        
+        Comparator<Aeropuerto> cmp = (a1,a2)->{ return a1.getCodigo().compareTo(a2.getCodigo());};
+        grafo = new Graph_RedVuelos(cmp);
+        leerAeropuertos("src/main/resources/Persistencia_Archivos/aeropuertos.txt");
+        leerVuelos("src/main/resources/Persistencia_Archivos/vuelos.txt");
+        //metodos de inicialización del panel
+        configurarPanel();
+        
+
+        espacio_grafo.boundsInLocalProperty().addListener((obs, oldBounds, newBounds) -> {
+        if (newBounds.getWidth() > 0 && newBounds.getHeight() > 0) {
+            actualizarGrafo();
+        }
+        });
+    }
+
     //cambiar a la vista principal
     @FXML
     private void switchToMainView(ActionEvent event) throws IOException {
@@ -55,28 +77,6 @@ public class VerAeropuertosController implements Initializable{
         } catch (IOException ex) {
         }
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //como es la vista principal al clicar en empezar se inicializa el grafo
-            //comparador actual
-            //el código es unico por eso comparo códigos
-        
-        Comparator<Aeropuerto> cmp = (a1,a2)->{ return a1.getCodigo().compareTo(a2.getCodigo());};
-        grafo = new Graph_RedVuelos(cmp);
-        leerAeropuertos("src/main/resources/Persistencia_Archivos/aeropuertos.txt");
-        
-        //metodos de inicialización del panel
-        configurarPanel();
-        
-
-        espacio_grafo.boundsInLocalProperty().addListener((obs, oldBounds, newBounds) -> {
-        if (newBounds.getWidth() > 0 && newBounds.getHeight() > 0) {
-            actualizarGrafo();
-        }
-        });
-    }
-
 
 
     //propios de la clase no deben salir de aquí
@@ -284,7 +284,7 @@ public class VerAeropuertosController implements Initializable{
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
-        
+        escribirVuelos();
         actualizarGrafo();
     }
 
@@ -342,14 +342,42 @@ public class VerAeropuertosController implements Initializable{
                     writer.write(ae.getNombre()+","+ae.getCodigo()+","+ae.getCiudad()+","+ae.getPais()+"\n");
                 }
             
-            } catch (IOException e) {
+        } catch (IOException e) {
                 System.err.println("Error escribiendo archivo: " + e.getMessage());
-            }
+        }
     }
     @FXML
     private void editar_aeropuerto(ActionEvent event) {
         //esta linea va al final igual que en eliminar
         escribirAeropuertos();
     }
-
+    
+    public void leerVuelos(String ruta){
+        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String [] info = linea.strip().split(",");
+                
+                Aeropuerto origen = grafo.findAirport(info[1]);
+                Aeropuerto destino = grafo.findAirport(info[2]);
+                //este metodo ya crea el vuelo y lo enlaza al origen
+                grafo.crearConexion(origen, destino, info[3], Integer.parseInt(info[4]), Integer.parseInt(info[5]), Integer.parseInt(info[6]), info[0]);
+            }
+        } catch (IOException e) {
+            System.err.println("Error leyendo archivo: " + e.getMessage());
+        }
+    }
+    public void escribirVuelos(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/Persistencia_Archivos/vuelos.txt"))) {
+                for(Aeropuerto ae: grafo.getAeropuertos()){
+                    for(Vuelo v: ae.getVuelos()){
+                        writer.write(v.getNumeroVuelo()+","+v.getOrigen().getCodigo()+","+v.getDestino().getCodigo()+","+v.getAerolinea()+","+v.getDistancia()+","+v.getDuracion()+","+v.getCosto()+"\n");
+                    }
+                   
+                }
+            
+            } catch (IOException e) {
+                System.err.println("Error escribiendo archivo: " + e.getMessage());
+            }
+    }
 }

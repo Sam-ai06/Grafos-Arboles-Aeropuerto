@@ -24,7 +24,8 @@ public class Vuelo {
     // Número de vuelo - usado para la vista eliminar vuelo
     private String numeroVuelo;
 
-    public Vuelo(String aerolinea, Aeropuerto origen, Aeropuerto destino, int distancia, int duracion, int costo) {
+    public Vuelo(String numVuelo, String aerolinea, Aeropuerto origen, Aeropuerto destino, int distancia, int duracion, int costo) {
+        this.numeroVuelo = numVuelo;
         this.aerolinea = aerolinea;
         this.origen = origen;
         this.destino = destino;
@@ -34,7 +35,7 @@ public class Vuelo {
     }
 
     public Vuelo(Aeropuerto origen, Aeropuerto destino) {
-        this(null, origen, destino, 0, 0, 0);
+        this(null, null, origen, destino, 0, 0, 0);
     }
 
     public String getAerolinea() {

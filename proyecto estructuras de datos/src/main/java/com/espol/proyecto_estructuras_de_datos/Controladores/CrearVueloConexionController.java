@@ -4,6 +4,8 @@
  */
 package com.espol.proyecto_estructuras_de_datos.Controladores;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,7 +58,12 @@ public class CrearVueloConexionController {
             int distancia = Integer.parseInt(txtField_distancia.getText().trim());
             int duracion = Integer.parseInt(txtField_duracion.getText().trim());
             int costo = Integer.parseInt(txtField_costo.getText().trim());
-
+            
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/Persistencia_Archivos/vuelos.txt",true))) {
+                writer.write(numeroVuelo+","+codigoOrigen+","+codigoDestino+","+aerolinea+","+distancia+","+duracion+","+costo+"\n");
+            } catch (IOException e) {
+                System.err.println("Error escribiendo archivo: " + e.getMessage());
+            }
             Aeropuerto origen = grafo.findAirport(codigoOrigen);
             Aeropuerto destino = grafo.findAirport(codigoDestino);
 
