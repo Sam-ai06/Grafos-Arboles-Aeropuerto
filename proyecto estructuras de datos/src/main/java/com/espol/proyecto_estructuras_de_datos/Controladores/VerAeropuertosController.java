@@ -247,4 +247,22 @@ public class VerAeropuertosController implements Initializable{
         }
     }
 
+    @FXML
+    public void SwitchToTrazarRutasView(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/TrazarRutasView.fxml"));
+            Parent root = loader.load();
+            TrazarRutaMasCortaController ventana = loader.getController();
+            ventana.setGrafo(grafo);
+            Stage stage = new Stage();
+            stage.setTitle("Trazar Rutas");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            actualizarGrafo();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
