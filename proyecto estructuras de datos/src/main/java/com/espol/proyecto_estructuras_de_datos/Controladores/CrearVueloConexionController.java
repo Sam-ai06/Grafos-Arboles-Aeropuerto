@@ -67,7 +67,7 @@ public class CrearVueloConexionController {
                 lbl_msg.setText("no se encontró el puerto de destino");
             }
 
-            boolean conexionCreada = grafo.crearConexion(origen, destino, aerolinea, distancia, duracion, costo);
+            boolean conexionCreada = grafo.crearConexion(origen, destino, aerolinea, distancia, duracion, costo, numeroVuelo);
             if (conexionCreada){
                 lbl_msg.setText("conexion creada exitosamente");
                 javafx.animation.Timeline timeline = new Timeline(new javafx.animation.KeyFrame(javafx.util.Duration.seconds(1.5),
