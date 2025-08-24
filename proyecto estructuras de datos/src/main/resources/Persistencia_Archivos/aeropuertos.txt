@@ -1,0 +1,2 @@
+Aeropuerto Internacional Daxing ,PKX,Pekín,China
+testeo,MAD,España,Madrid
