@@ -10,7 +10,7 @@ package modelo_logica;
  */
 public class Vuelo {
     private String aerolinea;
-    
+   
     //origen
     private Aeropuerto origen;
     //destino
