@@ -28,10 +28,10 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <TextField fx:id="txt_eliminar" layoutX="418.0" layoutY="213.0" prefHeight="65.0" prefWidth="410.0" />
+      <TextField fx:id="txt_eliminar" layoutX="368.0" layoutY="221.0" prefHeight="45.0" prefWidth="410.0" />
       <Text layoutX="33.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número del vuelo a eliminar:" wrappingWidth="383.408203125">
          <font>
-            <Font size="29.0" />
+            <Font size="22.0" />
          </font>
       </Text>
       <Label fx:id="lbl_msg" alignment="CENTER_RIGHT" layoutX="82.0" layoutY="146.0" prefHeight="32.0" prefWidth="684.0" textFill="RED">
