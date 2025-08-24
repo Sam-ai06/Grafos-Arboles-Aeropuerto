@@ -45,11 +45,6 @@ public class TrazarRutaMasCortaController implements Initializable {
 
     @FXML
     public void trazarRuta(){
-       /* try{
-            //logica necesaria para trazar la ruta más corta
-            //usar dijkstra.
-            //pensaba en un switch case para las opciones del comboBox, eso depende de como sergio quiera implementarlo
-        }*/
         String opcionSeleccionada = ComboBox_Opciones.getValue();
         switch (opcionSeleccionada) {
             case "Costo":
@@ -72,7 +67,7 @@ public class TrazarRutaMasCortaController implements Initializable {
                 break;
         }
     }
-    
+
     public Graph_RedVuelos getGrafo() {
         return grafo;
     }
