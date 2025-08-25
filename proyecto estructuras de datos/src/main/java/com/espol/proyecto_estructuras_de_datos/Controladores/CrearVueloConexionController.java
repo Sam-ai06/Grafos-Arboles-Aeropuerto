@@ -42,6 +42,14 @@ public class CrearVueloConexionController {
     private boolean esCampoVacio(TextField campo) {
         return campo.getText() == null || campo.getText().trim().isEmpty();
     }
+    private boolean EsNumeroValido(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     public boolean conectarAeropuertosVista() {
         try{
@@ -49,6 +57,10 @@ public class CrearVueloConexionController {
                     esCampoVacio(txtField_numeroVuelo) || esCampoVacio(txtField_distancia) || esCampoVacio(txtField_duracion)
                     || esCampoVacio(txtField_costo)){
                 lbl_msg.setText("Error. Debe rellenar todos los campos.");
+            }
+            else if(!EsNumeroValido(txtField_distancia.getText().trim()) || !EsNumeroValido(txtField_duracion.getText().trim()) ||
+                    !EsNumeroValido(txtField_costo.getText().trim())){
+                lbl_msg.setText("Error. Distancia, duración y costo deben ser números válidos y enteros.");
             }
             String numeroVuelo = txtField_numeroVuelo.getText().trim();
             String codigoOrigen = txtField_OriginCode.getText().trim();

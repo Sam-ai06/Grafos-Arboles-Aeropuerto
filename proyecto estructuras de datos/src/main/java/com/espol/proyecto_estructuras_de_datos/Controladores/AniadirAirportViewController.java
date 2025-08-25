@@ -60,6 +60,7 @@ public class AniadirAirportViewController {
         if (esCampoVacio(text_ciudad) || esCampoVacio(text_codigo) || esCampoVacio(text_pais) || esCampoVacio(text_name)) {
             label_msg.setText("Error. Debe rellenar todos los campos");
         }
+
         else{
             //luego de crear el aeropuerto
             String name = text_name.getText();

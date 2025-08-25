@@ -37,6 +37,7 @@ public class EliminarAirportController  {
         stage.close(); // cierra la ventana
     }
 
+
     @FXML
     private void eliminarAiportVista(ActionEvent event) {
         Aeropuerto airport_finded = grafo.findAirport(codigo_para_eliminar.getText());

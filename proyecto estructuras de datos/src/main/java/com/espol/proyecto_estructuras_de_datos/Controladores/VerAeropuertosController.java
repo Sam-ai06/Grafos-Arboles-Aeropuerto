@@ -412,9 +412,7 @@ public class VerAeropuertosController implements Initializable{
                     for(Vuelo v: ae.getVuelos()){
                         writer.write(v.getNumeroVuelo()+","+v.getOrigen().getCodigo()+","+v.getDestino().getCodigo()+","+v.getAerolinea()+","+v.getDistancia()+","+v.getDuracion()+","+v.getCosto()+"\n");
                     }
-                   
                 }
-            
             } catch (IOException e) {
                 System.err.println("Error escribiendo archivo: " + e.getMessage());
             }
