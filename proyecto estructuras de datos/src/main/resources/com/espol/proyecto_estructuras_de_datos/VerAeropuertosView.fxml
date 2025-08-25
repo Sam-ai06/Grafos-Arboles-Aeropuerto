@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1273.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.VerAeropuertosController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1273.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.VerAeropuertosController">
    <children>
       <Button fx:id="btn_salir" layoutX="874.0" layoutY="647.0" mnemonicParsing="false" onAction="#switchToMainView" prefHeight="47.0" prefWidth="209.0" style="-fx-background-color: #C7C7C7; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Salir" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="28.0">
          <font>
@@ -29,29 +29,36 @@
                   <Font size="27.0" />
                </font>
             </Button>
-            <Button fx:id="btn_editar" layoutX="47.0" layoutY="537.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Editar vuelos" textAlignment="CENTER">
+            <Button fx:id="btn_editar" layoutX="49.0" layoutY="534.0" mnemonicParsing="false" onAction="#SwitchToEditVuelosView" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Editar vuelos" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Button>
-            <Button fx:id="btn_conectarAero" layoutX="47.0" layoutY="436.0" mnemonicParsing="false" onAction="#SwitchToConnectAirPortsView" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Ingresar vuelo" textAlignment="CENTER">
+            <Button fx:id="btn_conectarAero" layoutX="49.0" layoutY="432.0" mnemonicParsing="false" onAction="#SwitchToConnectAirPortsView" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Ingresar vuelo" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Button>
-            <Button fx:id="btn_eliminarVuelo" layoutX="47.0" layoutY="633.0" mnemonicParsing="false" onAction="#eliminarVuelo" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Eliminar Vuelo" textAlignment="CENTER" AnchorPane.bottomAnchor="21.0">
+            <Button fx:id="btn_eliminarVuelo" layoutX="51.0" layoutY="633.0" mnemonicParsing="false" onAction="#eliminarVuelo" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Eliminar Vuelo" textAlignment="CENTER" AnchorPane.bottomAnchor="21.0">
                <font>
                   <Font size="27.0" />
                </font>
             </Button>
-            <Button fx:id="btn_editar_aeropuerto" layoutX="53.0" layoutY="336.0" mnemonicParsing="false" onAction="#editar_aeropuerto" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Editar aeropuerto" textAlignment="CENTER">
+            <Button fx:id="btn_editar_aeropuerto" layoutX="53.0" layoutY="331.0" mnemonicParsing="false" onAction="#switchToEditarAeropuertosView" prefHeight="70.0" prefWidth="307.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Editar aeropuerto" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Button>
          </children></AnchorPane>
       <Pane fx:id="espacio_grafo" layoutX="423.0" layoutY="12.0" prefHeight="612.0" prefWidth="776.0" style="-fx-background-color: #FFFDF7;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="423.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="12.0" />
+<<<<<<< HEAD
       <Button layoutX="454.0" layoutY="652.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="156.0" text="Estadísticas" textFill="#0a0202" AnchorPane.bottomAnchor="25.0" />
       <Button layoutX="637.0" layoutY="647.0" mnemonicParsing="false" onAction="#ActualizarGrafoView" prefHeight="41.0" prefWidth="143.0" text="Actualizar Grafo" AnchorPane.bottomAnchor="25.0" />
+=======
+      <Button layoutX="454.0" layoutY="652.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="156.0" style="-fx-background-color: #C7C7C7; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Estadísticas" textFill="#0a0202" AnchorPane.bottomAnchor="30.0">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+>>>>>>> edb68d487d6e37df842f60a9f33d5aa63081b25a
    </children>
 </AnchorPane>

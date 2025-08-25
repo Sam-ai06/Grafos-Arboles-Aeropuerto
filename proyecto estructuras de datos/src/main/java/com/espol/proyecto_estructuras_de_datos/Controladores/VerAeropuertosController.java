@@ -427,6 +427,42 @@ public class VerAeropuertosController implements Initializable{
         grafo.setSolicitaDijkstra(false);
         grafo.setRuta_corta(null);
         actualizarGrafo();
-        
+    }
+    
+    public void SwitchToEditVuelosView(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/EditarVueloView.fxml"));
+            Parent root = loader.load();
+            EditarVueloController ventana = loader.getController();
+            ventana.setGrafo(grafo);
+            Stage stage = new Stage();
+            stage.setTitle("Editar Vuelo");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            escribirVuelos();
+            actualizarGrafo();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void switchToEditarAeropuertosView(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/EditarAeropuertoView.fxml"));
+            Parent root = loader.load();
+            EditarAeropuertoController ventana = loader.getController();
+            ventana.setGrafo(grafo);
+            Stage stage = new Stage();
+            stage.setTitle("Editar Aeropuerto");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            escribirAeropuertos();
+            actualizarGrafo();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
