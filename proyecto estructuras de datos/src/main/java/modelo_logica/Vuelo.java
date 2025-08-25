@@ -18,9 +18,9 @@ public class Vuelo {
     // destino
     private Aeropuerto destino;
     // pesos
-    private int distancia;
-    private int duracion;
-    private int costo;
+    private double distancia;
+    private double duracion;
+    private double costo;
     // Número de vuelo - usado para la vista eliminar vuelo
     private String numeroVuelo;
 
@@ -62,27 +62,27 @@ public class Vuelo {
         this.destino = destino;
     }
 
-    public int getDistancia() {
+    public double getDistancia() {
         return distancia;
     }
 
-    public void setDistancia(int distancia) {
+    public void setDistancia(double distancia) {
         this.distancia = distancia;
     }
 
-    public int getDuracion() {
+    public double getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(double duracion) {
         this.duracion = duracion;
     }
 
-    public int getCosto() {
+    public double getCosto() {
         return costo;
     }
 
-    public void setCosto(int costo) {
+    public void setCosto(double costo) {
         this.costo = costo;
     }
 

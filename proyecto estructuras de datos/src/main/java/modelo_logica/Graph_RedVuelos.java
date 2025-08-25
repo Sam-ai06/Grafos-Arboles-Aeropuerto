@@ -92,7 +92,7 @@ public class Graph_RedVuelos {
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
-        int[] dist = new int[n];
+        double[] dist = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
         for (int i = 0; i < n; i++) {
@@ -102,16 +102,16 @@ public class Graph_RedVuelos {
         int indiceinicio = aeropuertos.indexOf(origen);
         int indicefinal = aeropuertos.indexOf(Destino);
         dist[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> dist[a] - dist[b]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(dist[a], dist[b]));
         pq.offer(indiceinicio);
         while (!pq.isEmpty()) {
             int inicio = pq.poll();
-            int distanciaact = dist[inicio];
+            double distanciaact = dist[inicio];
             if (!visitado[inicio]) {
                 visitado[inicio] = true;
                 for (Vuelo vuelo : aeropuertos.get(inicio).getVuelos()) {
                     int vecino = aeropuertos.indexOf(vuelo.getDestino());
-                    int nuevo = distanciaact + vuelo.getDistancia();
+                    double nuevo = distanciaact + vuelo.getDistancia();
 
                     if (nuevo < dist[vecino]) {
                         dist[vecino] = nuevo;
@@ -136,7 +136,7 @@ public class Graph_RedVuelos {
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
-        int[] duracion = new int[n];
+        double[] duracion = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
         for (int i = 0; i < n; i++) {
@@ -146,16 +146,16 @@ public class Graph_RedVuelos {
         int indiceinicio = aeropuertos.indexOf(origen);
         int indicefinal = aeropuertos.indexOf(Destino);
         duracion[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> duracion[a] - duracion[b]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(duracion[a], duracion[b]));
         pq.offer(indiceinicio);
         while (!pq.isEmpty()) {
             int inicio = pq.poll();
-            int duracionact=duracion[inicio];
+            double duracionact=duracion[inicio];
             if (!visitado[inicio]) {
                 visitado[inicio] = true;
             for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
                 int vecino=aeropuertos.indexOf(vuelo.getDestino());
-                int duracionsuma=duracionact+vuelo.getDuracion();
+                double duracionsuma=duracionact+vuelo.getDuracion();
                 if(duracionsuma<duracion[vecino]){
                     duracion[vecino]=duracionsuma;
                     predecesor[vecino]=inicio;
@@ -180,7 +180,7 @@ public class Graph_RedVuelos {
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
-        int[] distancia = new int[n];
+        double[] distancia = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
         for (int i = 0; i < n; i++) {
@@ -190,16 +190,16 @@ public class Graph_RedVuelos {
         int indiceinicio = aeropuertos.indexOf(origen);
         int indicefinal = aeropuertos.indexOf(Destino);
         distancia[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> distancia[a] - distancia[b]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(distancia[a], distancia[b]));
         pq.offer(indiceinicio);
         while (!pq.isEmpty()) {
             int inicio = pq.poll();
-            int distanciaact=distancia[inicio];
+            double distanciaact=distancia[inicio];
             if (!visitado[inicio]) {
                 visitado[inicio] = true;
             for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
                 int vecino=aeropuertos.indexOf(vuelo.getDestino());
-                int distanciasuma=distanciaact+vuelo.getDistancia();
+                double distanciasuma=distanciaact+vuelo.getDistancia();
                 if(distanciasuma<distancia[vecino]){
                     distancia[vecino]=distanciasuma;
                     predecesor[vecino]=inicio;
@@ -233,7 +233,7 @@ public class Graph_RedVuelos {
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
-        int[] costo = new int[n];
+        double[] costo = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
         for (int i = 0; i < n; i++) {
@@ -243,16 +243,16 @@ public class Graph_RedVuelos {
         int indiceinicio = aeropuertos.indexOf(origen);
         int indicefinal = aeropuertos.indexOf(Destino);
         costo[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> costo[a] - costo[b]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(costo[a], costo[b]));
         pq.offer(indiceinicio);
         while (!pq.isEmpty()) {
             int inicio = pq.poll();
-            int costoact=costo[inicio];
+            double costoact=costo[inicio];
             if (!visitado[inicio]) {
                 visitado[inicio] = true;
             for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
-                int vecino=aeropuertos.indexOf(vuelo.getCosto());
-                int costosuuma=costoact+vuelo.getCosto();
+                int vecino=aeropuertos.indexOf(vuelo.getDestino());
+                double costosuuma=costoact+vuelo.getCosto();
                 if(costosuuma<costo[vecino]){
                     costo[vecino]=costosuuma;
                     predecesor[vecino]=inicio;
@@ -286,7 +286,7 @@ public class Graph_RedVuelos {
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
-        int[] duracion = new int[n];
+        double[] duracion = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
         for (int i = 0; i < n; i++) {
@@ -296,16 +296,16 @@ public class Graph_RedVuelos {
         int indiceinicio = aeropuertos.indexOf(origen);
         int indicefinal = aeropuertos.indexOf(Destino);
         duracion[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> duracion[a] - duracion[b]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(duracion[a], duracion[b]));
         pq.offer(indiceinicio);
         while (!pq.isEmpty()) {
             int inicio = pq.poll();
-            int duracionact=duracion[inicio];
+            double duracionact=duracion[inicio];
             if (!visitado[inicio]) {
                 visitado[inicio] = true;
             for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
                 int vecino=aeropuertos.indexOf(vuelo.getDestino());
-                int duracionsuma=duracionact+vuelo.getDuracion();
+                double duracionsuma=duracionact+vuelo.getDuracion();
                 if(duracionsuma<duracion[vecino]){
                     duracion[vecino]=duracionsuma;
                     predecesor[vecino]=inicio;
@@ -410,7 +410,7 @@ public class Graph_RedVuelos {
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
-        int[] costo = new int[n];
+        double[] costo = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
         for (int i = 0; i < n; i++) {
@@ -420,16 +420,16 @@ public class Graph_RedVuelos {
         int indiceinicio = aeropuertos.indexOf(origen);
         int indicefinal = aeropuertos.indexOf(Destino);
         costo[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> costo[a] - costo[b]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(costo[a], costo[b]));
         pq.offer(indiceinicio);
         while (!pq.isEmpty()) {
             int inicio = pq.poll();
-            int costoact=costo[inicio];
+            double costoact=costo[inicio];
             if (!visitado[inicio]) {
                 visitado[inicio] = true;
             for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
                 int vecino=aeropuertos.indexOf(vuelo.getDestino());
-                int costosuma=costoact+vuelo.getCosto();
+                double costosuma=costoact+vuelo.getCosto();
                 if(costosuma<costo[vecino]){
                     costo[vecino]=costosuma;
                     predecesor[vecino]=inicio;
@@ -549,6 +549,6 @@ public class Graph_RedVuelos {
     public void setSolicitaDijkstra(boolean solicitaDijkstra) {
         this.solicitaDijkstra = solicitaDijkstra;
     }
-    
+
     
 }

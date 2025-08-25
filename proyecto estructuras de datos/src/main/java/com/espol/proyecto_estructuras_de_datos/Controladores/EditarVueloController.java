@@ -52,13 +52,13 @@ public class EditarVueloController implements Initializable {
         switch (opcionSeleccionada) {
             case "cambiar costo":
                 //validar que sea un numero en el caso de costo¿? o no se puede validar
-                vuelo_actual.setCosto(Integer.parseInt(dato_cambio));
+                vuelo_actual.setCosto(Double.parseDouble(dato_cambio));
                 break;
             case "cambiar distancia":
-                vuelo_actual.setDistancia(Integer.parseInt(dato_cambio));
+                vuelo_actual.setDistancia(Double.parseDouble(dato_cambio));
                 break;
             case "cambiar tiempo":
-                vuelo_actual.setDuracion(Integer.parseInt(dato_cambio));
+                vuelo_actual.setDuracion(Double.parseDouble(dato_cambio));
                 break;
             case "cambiar origen":
                 //validar que el aeropuerto existe¿? existe un metodo llamado airportisingrafo(recien me acuerdo)
