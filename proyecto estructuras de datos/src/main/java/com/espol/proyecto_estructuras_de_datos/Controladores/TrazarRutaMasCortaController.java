@@ -56,7 +56,7 @@ public class TrazarRutaMasCortaController implements Initializable {
                 lbl_msg.setText("Trazando ruta más corta por Distancia...");
                 Aeropuerto origen = grafo.findAirport(txt_OriginPort.getText().trim());
                 Aeropuerto destino = grafo.findAirport(txt_DestinationPort.getText().trim());
-                grafo.rutaduracioncortaauxiliar(origen, Destino)
+                grafo.rutaduracioncortaauxiliar(origen, destino);
                 break;
             case "Tiempo":
                 // Lógica para trazar la ruta más corta basada en tiempo
