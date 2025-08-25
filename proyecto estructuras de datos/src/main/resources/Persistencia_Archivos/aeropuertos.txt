@@ -1,5 +1,10 @@
-TEST1,PKX,Pekín,China
-TEST3,MMM,INVENTADO,Notiene
-TEST,PKX,TEST,TEST
-ColombianAirlanes,CAS,Cartagena,Colombia
-YO,MAYRA,AKS,PEKIN
+Beijing Daxing International Airport,PKX,Beijing,China
+Los Angeles International Airport,LAX,Los Angeles,USA
+Heathrow Airport,LHR,London,UK
+Charles de Gaulle Airport,CDG,Paris,France
+Tokyo Haneda Airport,HND,Tokyo,Japan
+El Dorado International Airport,BOG,Bogotá,Colombia
+Sydney Kingsford Smith Airport,SYD,Sydney,Australia
+Frankfurt am Main Airport,FRA,Frankfurt,Germany
+Dubai International Airport,DXB,Dubai,UAE
+Toronto Pearson International Airport,YYZ,Toronto,Canada

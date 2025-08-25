@@ -11,6 +11,7 @@ import modelo_logica.Graph_RedVuelos;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import modelo_logica.Aeropuerto;
 
 public class EditarAeropuertoController implements Initializable {
     @FXML
@@ -40,7 +41,30 @@ public class EditarAeropuertoController implements Initializable {
 
     @FXML
     public void guardarCambios(){
-        //pendiente
+        String opcionSeleccionada = combo_Opciones.getValue();
+        //encontramos el aeropuerto a editar
+        //validar si el aeropuerto es null
+        Aeropuerto actual = grafo.findAirport(txt_codigo.getText().trim());
+        String dato_cambio = txt_relleno.getText().trim();
+        switch (opcionSeleccionada) {
+            case "Nombre del aeropuerto":
+                actual.setNombre(dato_cambio);
+                break;
+            case "Codigo IATA":
+                actual.setCodigo(dato_cambio);
+                break;
+            case "Ciudad":
+                actual.setCiudad(dato_cambio);
+                break;
+            case "Pais":
+                actual.setPais(dato_cambio);
+                break;
+            default:
+                //no se que hacer aquí , nunca uso switch
+                break;
+        }
+        Stage stage = (Stage) btn_guardar.getScene().getWindow();
+        stage.close();
     }
 
 
@@ -50,7 +74,7 @@ public class EditarAeropuertoController implements Initializable {
     }
     //inicializar el comboBox
     private void InitializeComboBox(){
-        combo_Opciones.getItems().addAll("Nombre del aeropuerto", "Codigo IATA", "ciudad", "Pais");
+        combo_Opciones.getItems().addAll("Nombre del aeropuerto", "Codigo IATA", "Ciudad", "Pais");
         combo_Opciones.setPromptText("Elige una opción"); // valor por defecto
     }
 }

@@ -217,6 +217,7 @@ public class VerAeropuertosController implements Initializable{
         }
     }
     //otra forma de mostrar Dijkstra/ solo se muestran los arcos que forman el camino mas corto
+    /*
     private void crearRutaDijkstra(Map<Aeropuerto, double[]> posiciones, double radioCentral, double radioSecundario){
         for(Vuelo vuelo: grafo.getRuta_corta()){
             Aeropuerto origen = vuelo.getOrigen();
@@ -250,7 +251,8 @@ public class VerAeropuertosController implements Initializable{
             dibujarFlecha(pos_origen, pos_destino, radioDestino);
             
         }
-    }
+    
+*/
     private void dibujarFlecha(double[] posOrigin, double[] posDestiny, double radioDestino) {
         double distanciaX = posDestiny[0] - posOrigin[0];
         double distanciaY = posDestiny[1] - posOrigin[1];
@@ -385,11 +387,7 @@ public class VerAeropuertosController implements Initializable{
                 System.err.println("Error escribiendo archivo: " + e.getMessage());
         }
     }
-    @FXML
-    private void editar_aeropuerto(ActionEvent event) {
-        //esta linea va al final igual que en eliminar
-        escribirAeropuertos();
-    }
+   
     
     public void leerVuelos(String ruta){
         try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {

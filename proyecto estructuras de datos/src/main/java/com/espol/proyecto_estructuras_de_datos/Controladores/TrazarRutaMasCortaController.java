@@ -53,13 +53,12 @@ public class TrazarRutaMasCortaController implements Initializable {
             case "Costo":
                 // Lógica para trazar la ruta más corta basada en costo
                 lbl_msg.setText("Trazando ruta más corta por Costo...");
-                //linea parecida a esta grafo.setRuta_corta(grafo.rutaduracioncortaauxiliar(origen, destino)); pero con el nombre del metodo de sergio
-                //preguntar a Sergio
+                grafo.setRuta_corta(grafo.rutacostoauxiliar(origen, destino));
                 break;
-            case "DistancIA":
+            case "Distancia":
                 // Lógica para trazar la ruta más corta basada en distancia
                 lbl_msg.setText("Trazando ruta más corta por Distancia...");
-                
+                grafo.setRuta_corta(grafo.rutadistanciaauxiliar(origen, destino));
                 break;
             case "Tiempo":
                 // Lógica para trazar la ruta más corta basada en tiempo

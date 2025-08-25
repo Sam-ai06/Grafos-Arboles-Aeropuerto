@@ -45,7 +45,18 @@ public class Graph_RedVuelos {
         }
         return false;
     }
-
+    public Vuelo findVuelo(String numeroVuelo){
+       for (Aeropuerto aeropuerto : aeropuertos) {
+            Iterator<Vuelo> it = aeropuerto.getVuelos().iterator();
+            while (it.hasNext()) {
+                Vuelo vuelo = it.next();
+                if (vuelo.getNumeroVuelo() != null && vuelo.getNumeroVuelo().equals(numeroVuelo)) {
+                    return vuelo;
+                }
+            }
+        } 
+       return null;
+    }
     public boolean eliminarVuelo(String numeroVuelo) {
         if (numeroVuelo == null || numeroVuelo.trim().isEmpty()) {
             return false;
@@ -73,6 +84,8 @@ public class Graph_RedVuelos {
         }
         return false;
     }
+    //estos metodos retornan los aeropuertos, los dejé aquí por si acaso pero estamos usando los auxiliares que retornan vuelos
+    
     public List<Aeropuerto> rutadistanciacorta(Aeropuerto origen, Aeropuerto Destino) {
         int n = aeropuertos.size();
         if (cmp.compare(origen, Destino) == 0) {
@@ -160,6 +173,7 @@ public class Graph_RedVuelos {
         }
         return regresar;
     }
+
     public List<Vuelo> rutadistanciaauxiliar(Aeropuerto origen,Aeropuerto Destino){
         int n = aeropuertos.size();
         if (cmp.compare(origen, Destino) == 0) {
@@ -371,6 +385,7 @@ public class Graph_RedVuelos {
         aeropuertos.remove(aeropuertoeliminar);
         return true;
     }
+    
     //da la duracion haciendo uso de la ruta
     public int duracionviaje(Aeropuerto origen, Aeropuerto destino) {
         if (cmp.compare(origen, destino) == 0)
