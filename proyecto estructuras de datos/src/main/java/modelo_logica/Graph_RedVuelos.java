@@ -160,6 +160,112 @@ public class Graph_RedVuelos {
         }
         return regresar;
     }
+    public List<Vuelo> rutadistanciaauxiliar(Aeropuerto origen,Aeropuerto Destino){
+        int n = aeropuertos.size();
+        if (cmp.compare(origen, Destino) == 0) {
+            return null;
+        }
+        int[] distancia = new int[n];
+        int[] predecesor = new int[n];
+        boolean[] visitado = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            distancia[i] = Integer.MAX_VALUE;
+            predecesor[i] = -1;
+        }
+        int indiceinicio = aeropuertos.indexOf(origen);
+        int indicefinal = aeropuertos.indexOf(Destino);
+        distancia[indiceinicio] = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> distancia[a] - distancia[b]);
+        pq.offer(indiceinicio);
+        while (!pq.isEmpty()) {
+            int inicio = pq.poll();
+            int distanciaact=distancia[inicio];
+            if (!visitado[inicio]) {
+                visitado[inicio] = true;
+            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
+                int vecino=aeropuertos.indexOf(vuelo.getDestino());
+                int distanciasuma=distanciaact+vuelo.getDistancia();
+                if(distanciasuma<distancia[vecino]){
+                    distancia[vecino]=distanciasuma;
+                    predecesor[vecino]=inicio;
+                    pq.offer(vecino);
+                }
+            }
+            }
+        
+        }
+        if (distancia[indicefinal] == Integer.MAX_VALUE) {
+            return null;
+        }
+        List<Aeropuerto> regresar = new LinkedList<>();
+        for (int at = indicefinal; at != -1; at = predecesor[at]) {
+            regresar.addFirst(aeropuertos.get(at));
+        }
+        List<Vuelo> vuelosregresar = new LinkedList<>();
+        for (int i = 0; i < regresar.size() - 1; i++) {
+            Aeropuerto actual = regresar.get(i);
+            Aeropuerto siguiente = regresar.get(i + 1);
+            for (Vuelo vueloact : actual.getVuelos()) {
+            if (cmp.compare(vueloact.getDestino(), siguiente)==0) {
+                vuelosregresar.add(vueloact);
+            }
+        }
+        }
+        return vuelosregresar;
+    }
+    public List<Vuelo> rutacostoauxiliar(Aeropuerto origen,Aeropuerto Destino){
+        int n = aeropuertos.size();
+        if (cmp.compare(origen, Destino) == 0) {
+            return null;
+        }
+        int[] costo = new int[n];
+        int[] predecesor = new int[n];
+        boolean[] visitado = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            costo[i] = Integer.MAX_VALUE;
+            predecesor[i] = -1;
+        }
+        int indiceinicio = aeropuertos.indexOf(origen);
+        int indicefinal = aeropuertos.indexOf(Destino);
+        costo[indiceinicio] = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> costo[a] - costo[b]);
+        pq.offer(indiceinicio);
+        while (!pq.isEmpty()) {
+            int inicio = pq.poll();
+            int costoact=costo[inicio];
+            if (!visitado[inicio]) {
+                visitado[inicio] = true;
+            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
+                int vecino=aeropuertos.indexOf(vuelo.getCosto());
+                int costosuuma=costoact+vuelo.getCosto();
+                if(costosuuma<costo[vecino]){
+                    costo[vecino]=costosuuma;
+                    predecesor[vecino]=inicio;
+                    pq.offer(vecino);
+                }
+            }
+            }
+        
+        }
+        if (costo[indicefinal] == Integer.MAX_VALUE) {
+            return null;
+        }
+        List<Aeropuerto> regresar = new LinkedList<>();
+        for (int at = indicefinal; at != -1; at = predecesor[at]) {
+            regresar.addFirst(aeropuertos.get(at));
+        }
+        List<Vuelo> vuelosregresar = new LinkedList<>();
+        for (int i = 0; i < regresar.size() - 1; i++) {
+            Aeropuerto actual = regresar.get(i);
+            Aeropuerto siguiente = regresar.get(i + 1);
+            for (Vuelo vueloact : actual.getVuelos()) {
+            if (cmp.compare(vueloact.getDestino(), siguiente)==0) {
+                vuelosregresar.add(vueloact);
+            }
+        }
+        }
+        return vuelosregresar;
+    }
     public List<Vuelo> rutaduracioncortaauxiliar(Aeropuerto origen,Aeropuerto Destino){
         int n = aeropuertos.size();
         if (cmp.compare(origen, Destino) == 0) {
