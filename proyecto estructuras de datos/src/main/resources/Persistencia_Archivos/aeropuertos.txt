@@ -2,3 +2,4 @@ TEST1,PKX,Pekín,China
 TEST3,MMM,INVENTADO,Notiene
 TEST,PKX,TEST,TEST
 ColombianAirlanes,CAS,Cartagena,Colombia
+YO,MAYRA,AKS,PEKIN

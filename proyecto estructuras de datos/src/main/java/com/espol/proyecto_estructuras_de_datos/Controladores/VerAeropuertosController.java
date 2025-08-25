@@ -153,10 +153,7 @@ public class VerAeropuertosController implements Initializable{
             double [] pos = {x, y};
             posiciones.put(aeropuertos.get(i), pos);
         }
-
-        // Primero crear las aristas (para que queden atrás)
-        crearArcos(posiciones, radioCentral, radioSecundario);
-
+        crearArcos(posiciones,radioCentral,radioSecundario);
         // Después crear los nodos (para que queden adelante)
         Circle nodoCentral = new Circle(centroX, centroY, radioCentral, Color.RED);
         Tooltip.install(nodoCentral, new Tooltip(central.getNombre()+"\n"+central.getCodigo()));
@@ -171,6 +168,7 @@ public class VerAeropuertosController implements Initializable{
     }
 
     private void crearArcos(Map<Aeropuerto, double[]> posiciones, double radioCentral, double radioSecundario) {
+            
         for (Aeropuerto Origin : grafo.getAeropuertos()) {
             double[] posOrigin = posiciones.get(Origin);
             if (posOrigin == null) {
@@ -205,16 +203,55 @@ public class VerAeropuertosController implements Initializable{
 
                 // El arco en cuestión
                 Line arco = new Line(inicioX, inicioY, finX, finY);
-                arco.setStroke(Color.BLACK);
+                
+                if(grafo.VueloEnDijkstra(vuelo)){
+                    arco.setStroke(Color.ORANGE);
+                }
+                else
+                    arco.setStroke(Color.BLACK);
                 arco.setStrokeWidth(2);
                 espacio_grafo.getChildren().add(arco);
                 Tooltip.install(arco, new Tooltip(vuelo.getNumeroVuelo()+"\n"+vuelo.getDistancia()+"km"+"\n"+vuelo.getAerolinea()));
-                dibujarFlecha(arco, posOrigin, posDestiny, radioDestino);
+                dibujarFlecha(posOrigin, posDestiny, radioDestino);
             }
         }
     }
+    //otra forma de mostrar Dijkstra/ solo se muestran los arcos que forman el camino mas corto
+    private void crearRutaDijkstra(Map<Aeropuerto, double[]> posiciones, double radioCentral, double radioSecundario){
+        for(Vuelo vuelo: grafo.getRuta_corta()){
+            Aeropuerto origen = vuelo.getOrigen();
+            Aeropuerto destino = vuelo.getDestino();
+            double [] pos_origen = posiciones.get(origen);
+            double [] pos_destino = posiciones.get(destino);
+            double radioOrigen = (origen == grafo.getAeropuertos().get(0)) ? radioCentral : radioSecundario;
+            double radioDestino = (destino == grafo.getAeropuertos().get(0)) ? radioCentral : radioSecundario;
+            // Calcular vector direccional
+            double distanciaX = pos_destino[0] - pos_origen[0];
+            double distanciaY = pos_destino[1] - pos_origen[1];
+            double largo = Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
+            if (largo == 0) {
+                continue;
+            }
+            distanciaX /= largo;
+            distanciaY /= largo;
 
-    private void dibujarFlecha(Line arco, double[] posOrigin, double[] posDestiny, double radioDestino) {
+            // Ajustar puntos de inicio y fin para que no se superpongan con los nodos
+            double inicioX = pos_origen[0] + distanciaX * radioOrigen;
+            double inicioY = pos_origen[1] + distanciaY * radioOrigen;
+            double finX = pos_destino[0] - distanciaX * radioDestino;
+            double finY = pos_destino[1] - distanciaY * radioDestino;
+
+            // El arco en cuestión
+            Line arco = new Line(inicioX, inicioY, finX, finY);
+            arco.setStroke(Color.RED);
+            arco.setStrokeWidth(2);
+            espacio_grafo.getChildren().add(arco);
+            Tooltip.install(arco, new Tooltip(vuelo.getNumeroVuelo()+"\n"+vuelo.getDistancia()+"km"+"\n"+vuelo.getAerolinea()));
+            dibujarFlecha(pos_origen, pos_destino, radioDestino);
+            
+        }
+    }
+    private void dibujarFlecha(double[] posOrigin, double[] posDestiny, double radioDestino) {
         double distanciaX = posDestiny[0] - posOrigin[0];
         double distanciaY = posDestiny[1] - posOrigin[1];
         double largo = Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
@@ -238,8 +275,10 @@ public class VerAeropuertosController implements Initializable{
 
         Line parte1 = new Line(FlechaX, FlechaY, x1, y1);
         Line parte2 = new Line(FlechaX, FlechaY, x2, y2);
+        
         parte1.setStroke(Color.BLACK);
         parte2.setStroke(Color.BLACK);
+        
         parte1.setStrokeWidth(2);
         parte2.setStrokeWidth(2);
         espacio_grafo.getChildren().addAll(parte1, parte2);
@@ -379,5 +418,15 @@ public class VerAeropuertosController implements Initializable{
             } catch (IOException e) {
                 System.err.println("Error escribiendo archivo: " + e.getMessage());
             }
+    }
+
+    @FXML
+    private void ActualizarGrafoView(ActionEvent event) {
+        //en caso de que se use dijkstra setea el atributo a false pq ya se actualizo
+        //se borra la ruta guardada
+        grafo.setSolicitaDijkstra(false);
+        grafo.setRuta_corta(null);
+        actualizarGrafo();
+        
     }
 }

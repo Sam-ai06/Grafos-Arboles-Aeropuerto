@@ -46,26 +46,33 @@ public class TrazarRutaMasCortaController implements Initializable {
     @FXML
     public void trazarRuta(){
         String opcionSeleccionada = ComboBox_Opciones.getValue();
+        grafo.setSolicitaDijkstra(true);
+        Aeropuerto origen = grafo.findAirport(txt_OriginPort.getText().trim());
+        Aeropuerto destino = grafo.findAirport(txt_DestinationPort.getText().trim());
         switch (opcionSeleccionada) {
             case "Costo":
                 // Lógica para trazar la ruta más corta basada en costo
                 lbl_msg.setText("Trazando ruta más corta por Costo...");
+                //linea parecida a esta grafo.setRuta_corta(grafo.rutaduracioncortaauxiliar(origen, destino)); pero con el nombre del metodo de sergio
+                //preguntar a Sergio
                 break;
-            case "Distancia":
+            case "DistancIA":
                 // Lógica para trazar la ruta más corta basada en distancia
                 lbl_msg.setText("Trazando ruta más corta por Distancia...");
-                Aeropuerto origen = grafo.findAirport(txt_OriginPort.getText().trim());
-                Aeropuerto destino = grafo.findAirport(txt_DestinationPort.getText().trim());
-                grafo.rutaduracioncortaauxiliar(origen, Destino)
+                
                 break;
             case "Tiempo":
                 // Lógica para trazar la ruta más corta basada en tiempo
                 lbl_msg.setText("Trazando ruta más corta por Tiempo...");
+                grafo.setRuta_corta(grafo.rutaduracioncortaauxiliar(origen, destino));
+         
                 break;
             default:
                 lbl_msg.setText("Por favor, seleccione una opción válida.");
                 break;
         }
+        Stage stage = (Stage) btn_trazar.getScene().getWindow();
+        stage.close();
     }
 
     public Graph_RedVuelos getGrafo() {

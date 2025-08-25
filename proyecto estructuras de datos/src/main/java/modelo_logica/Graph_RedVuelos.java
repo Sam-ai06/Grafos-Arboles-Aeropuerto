@@ -23,8 +23,9 @@ public class Graph_RedVuelos {
     // literatura
     private Comparator<Aeropuerto> cmp;// para posibles metodos -> probablemente este cmp evalue nombre y codigo del
                                        // aeropuerto así evito duplicados
-    // pero no sé dónde se crearía ese cmp ¿?
-
+    //para dijkstra
+    private List<Vuelo> ruta_corta;
+    private boolean solicitaDijkstra;
     // antes de entrar aquí se debió crear el Aeropuerto
     public boolean agregarAeropuerto(Aeropuerto airport) {
 
@@ -62,7 +63,16 @@ public class Graph_RedVuelos {
         }
         return false;
     }
-
+    public boolean VueloEnDijkstra(Vuelo v){
+        //si no existe nada en ruta_corta significa q no se ha llamado a dijkstra
+        if(ruta_corta == null || v == null)
+            return false;
+        for(Vuelo vuelo: this.getRuta_corta()){
+            if(v.getNumeroVuelo().equals(vuelo.getNumeroVuelo()))
+                return true;
+        }
+        return false;
+    }
     public List<Aeropuerto> rutadistanciacorta(Aeropuerto origen, Aeropuerto Destino) {
         int n = aeropuertos.size();
         if (cmp.compare(origen, Destino) == 0) {
@@ -203,7 +213,7 @@ public class Graph_RedVuelos {
         }
         return vuelosregresar;
     }
-
+    //
     // conectar aeropuertos/ crear vuelos
     public boolean crearConexion(Aeropuerto origen, Aeropuerto destino, String aerolinea, int distancia, int duracion, int costo, String numeroVuelo) {
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(destino))
@@ -390,4 +400,21 @@ public class Graph_RedVuelos {
         this.aeropuertos = new LinkedList<>();
     }
 
+    public List<Vuelo> getRuta_corta() {
+        return ruta_corta;
+    }
+
+    public void setRuta_corta(List<Vuelo> ruta_corta) {
+        this.ruta_corta = ruta_corta;
+    }
+
+    public boolean isDijkstra() {
+        return solicitaDijkstra;
+    }
+
+    public void setSolicitaDijkstra(boolean solicitaDijkstra) {
+        this.solicitaDijkstra = solicitaDijkstra;
+    }
+    
+    
 }
