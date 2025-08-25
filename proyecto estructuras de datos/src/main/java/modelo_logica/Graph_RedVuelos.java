@@ -45,7 +45,7 @@ public class Graph_RedVuelos {
         }
         return false;
     }
-
+    
     public boolean eliminarVuelo(String numeroVuelo) {
         if (numeroVuelo == null || numeroVuelo.trim().isEmpty()) {
             return false;
@@ -449,6 +449,18 @@ public class Graph_RedVuelos {
         
         }
         return costoTotal;
+    }
+    public List<Vuelo> vueloaerolienas(String aerolinea){
+        if(aerolinea==null){return null;}
+        List<Vuelo> filtrado=new LinkedList<>();
+        for(Aeropuerto airport:aeropuertos){
+            for(Vuelo vuelo:airport.getVuelos()){
+                if(vuelo.getAerolinea().equals(aerolinea)){
+                   filtrado.add(vuelo);
+                }
+            }
+        }
+        return filtrado;
     }
 
     // da el la distancia haciendo uso de la ruta
