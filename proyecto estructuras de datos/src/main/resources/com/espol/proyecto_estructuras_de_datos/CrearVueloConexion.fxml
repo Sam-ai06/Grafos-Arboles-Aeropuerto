@@ -17,8 +17,8 @@
       </AnchorPane>
       <Text layoutX="68.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de destino: " AnchorPane.leftAnchor="65.0" />
       <Text layoutX="66.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código del aeropuerto de origen:" AnchorPane.leftAnchor="65.0" />
-      <Text layoutX="66.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aerolínea" AnchorPane.leftAnchor="65.0" />
-      <Text layoutX="66.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia (kilómetros):" AnchorPane.leftAnchor="65.0" />
+      <Text layoutX="66.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aerolínea:" AnchorPane.leftAnchor="65.0" />
+      <Text layoutX="66.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia: (kilómetros):" AnchorPane.leftAnchor="65.0" />
       <Text layoutX="66.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duracion(Horas): " AnchorPane.leftAnchor="65.0" />
       <Text layoutX="61.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Costo aproximado: " AnchorPane.leftAnchor="65.0" />
       <TextField fx:id="txtField_OriginCode" layoutX="287.0" layoutY="141.0" prefHeight="19.0" prefWidth="185.0" />
