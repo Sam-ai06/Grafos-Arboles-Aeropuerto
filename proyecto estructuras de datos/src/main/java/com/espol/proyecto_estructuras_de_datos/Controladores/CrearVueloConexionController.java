@@ -38,6 +38,7 @@ public class CrearVueloConexionController {
     private TextField txtField_Aerolinea, txtField_distancia, txtField_duracion, txtField_costo;
 
     private Graph_RedVuelos grafo;
+    private int horas_maximo = 19;
 
     private boolean esCampoVacio(TextField campo) {
         return campo.getText() == null || campo.getText().trim().isEmpty();
@@ -62,10 +63,17 @@ public class CrearVueloConexionController {
                     !EsNumeroValido(txtField_costo.getText().trim())){
                 lbl_msg.setText("Error. Distancia, duración y costo deben ser números válidos y enteros.");
             }
+            else if (Integer.parseInt(txtField_duracion.getText().trim()) > horas_maximo){
+                lbl_msg.setText("Error. La duración máxima de vuelo es de 19 horas.");
+            }
             String numeroVuelo = txtField_numeroVuelo.getText().trim();
             String codigoOrigen = txtField_OriginCode.getText().trim();
             String codigoDestino = txtField_DestinyCode.getText().trim();
             String aerolinea = txtField_Aerolinea.getText().trim();
+            //verificar que origen y destino no sean iguales
+            if (codigoOrigen.equals(codigoDestino)){
+                lbl_msg.setText("Error. Origen y destino no pueden ser iguales.");
+            }
 
             int distancia = Integer.parseInt(txtField_distancia.getText().trim());
             int duracion = Integer.parseInt(txtField_duracion.getText().trim());
