@@ -5,11 +5,9 @@
 package modelo_logica;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 
@@ -176,46 +174,7 @@ public class Graph_RedVuelos {
     }
 
     public List<Vuelo> rutadistanciaauxiliar(Aeropuerto origen,Aeropuerto Destino){
-        int n = aeropuertos.size();
-        if (cmp.compare(origen, Destino) == 0) {
-            return null;
-        }
-        double[] distancia = new double[n];
-        int[] predecesor = new int[n];
-        boolean[] visitado = new boolean[n];
-        for (int i = 0; i < n; i++) {
-            distancia[i] = Integer.MAX_VALUE;
-            predecesor[i] = -1;
-        }
-        int indiceinicio = aeropuertos.indexOf(origen);
-        int indicefinal = aeropuertos.indexOf(Destino);
-        distancia[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(distancia[a], distancia[b]));
-        pq.offer(indiceinicio);
-        while (!pq.isEmpty()) {
-            int inicio = pq.poll();
-            double distanciaact=distancia[inicio];
-            if (!visitado[inicio]) {
-                visitado[inicio] = true;
-            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
-                int vecino=aeropuertos.indexOf(vuelo.getDestino());
-                double distanciasuma=distanciaact+vuelo.getDistancia();
-                if(distanciasuma<distancia[vecino]){
-                    distancia[vecino]=distanciasuma;
-                    predecesor[vecino]=inicio;
-                    pq.offer(vecino);
-                }
-            }
-            }
-        
-        }
-        if (distancia[indicefinal] == Integer.MAX_VALUE) {
-            return null;
-        }
-        List<Aeropuerto> regresar = new LinkedList<>();
-        for (int at = indicefinal; at != -1; at = predecesor[at]) {
-            regresar.addFirst(aeropuertos.get(at));
-        }
+        List<Aeropuerto> regresar = rutadistanciacorta(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
             Aeropuerto actual = regresar.get(i);
@@ -229,46 +188,7 @@ public class Graph_RedVuelos {
         return vuelosregresar;
     }
     public List<Vuelo> rutacostoauxiliar(Aeropuerto origen,Aeropuerto Destino){
-        int n = aeropuertos.size();
-        if (cmp.compare(origen, Destino) == 0) {
-            return null;
-        }
-        double[] costo = new double[n];
-        int[] predecesor = new int[n];
-        boolean[] visitado = new boolean[n];
-        for (int i = 0; i < n; i++) {
-            costo[i] = Integer.MAX_VALUE;
-            predecesor[i] = -1;
-        }
-        int indiceinicio = aeropuertos.indexOf(origen);
-        int indicefinal = aeropuertos.indexOf(Destino);
-        costo[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(costo[a], costo[b]));
-        pq.offer(indiceinicio);
-        while (!pq.isEmpty()) {
-            int inicio = pq.poll();
-            double costoact=costo[inicio];
-            if (!visitado[inicio]) {
-                visitado[inicio] = true;
-            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
-                int vecino=aeropuertos.indexOf(vuelo.getDestino());
-                double costosuuma=costoact+vuelo.getCosto();
-                if(costosuuma<costo[vecino]){
-                    costo[vecino]=costosuuma;
-                    predecesor[vecino]=inicio;
-                    pq.offer(vecino);
-                }
-            }
-            }
-        
-        }
-        if (costo[indicefinal] == Integer.MAX_VALUE) {
-            return null;
-        }
-        List<Aeropuerto> regresar = new LinkedList<>();
-        for (int at = indicefinal; at != -1; at = predecesor[at]) {
-            regresar.addFirst(aeropuertos.get(at));
-        }
+        List<Aeropuerto> regresar = rutacostobajo(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
             Aeropuerto actual = regresar.get(i);
@@ -282,46 +202,7 @@ public class Graph_RedVuelos {
         return vuelosregresar;
     }
     public List<Vuelo> rutaduracioncortaauxiliar(Aeropuerto origen,Aeropuerto Destino){
-        int n = aeropuertos.size();
-        if (cmp.compare(origen, Destino) == 0) {
-            return null;
-        }
-        double[] duracion = new double[n];
-        int[] predecesor = new int[n];
-        boolean[] visitado = new boolean[n];
-        for (int i = 0; i < n; i++) {
-            duracion[i] = Integer.MAX_VALUE;
-            predecesor[i] = -1;
-        }
-        int indiceinicio = aeropuertos.indexOf(origen);
-        int indicefinal = aeropuertos.indexOf(Destino);
-        duracion[indiceinicio] = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Double.compare(duracion[a], duracion[b]));
-        pq.offer(indiceinicio);
-        while (!pq.isEmpty()) {
-            int inicio = pq.poll();
-            double duracionact=duracion[inicio];
-            if (!visitado[inicio]) {
-                visitado[inicio] = true;
-            for(Vuelo vuelo:aeropuertos.get(inicio).getVuelos()){
-                int vecino=aeropuertos.indexOf(vuelo.getDestino());
-                double duracionsuma=duracionact+vuelo.getDuracion();
-                if(duracionsuma<duracion[vecino]){
-                    duracion[vecino]=duracionsuma;
-                    predecesor[vecino]=inicio;
-                    pq.offer(vecino);
-                }
-            }
-            }
-        
-        }
-        if (duracion[indicefinal] == Integer.MAX_VALUE) {
-            return null;
-        }
-        List<Aeropuerto> regresar = new LinkedList<>();
-        for (int at = indicefinal; at != -1; at = predecesor[at]) {
-            regresar.addFirst(aeropuertos.get(at));
-        }
+        List<Aeropuerto> regresar = rutaduracioncorta(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
             Aeropuerto actual = regresar.get(i);
