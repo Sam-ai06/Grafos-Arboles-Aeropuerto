@@ -24,6 +24,8 @@ public class EditarVueloController implements Initializable {
     @FXML
     private TextField txt_codigo, txt_relleno;
 
+    private double distancia_vueloMaxima = 15.000;
+
 
     private Graph_RedVuelos grafo;
 
@@ -42,6 +44,15 @@ public class EditarVueloController implements Initializable {
 
     }
 
+    private boolean EsNumeroValido(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     @FXML
     public void guardarCambios(){
         String opcionSeleccionada = combo_Opciones.getValue();
@@ -52,10 +63,23 @@ public class EditarVueloController implements Initializable {
         switch (opcionSeleccionada) {
             case "cambiar costo":
                 //validar que sea un numero en el caso de costo¿? o no se puede validar
-                vuelo_actual.setCosto(Double.parseDouble(dato_cambio));
+                //si se puede xd
+                if (EsNumeroValido(dato_cambio)){
+                    vuelo_actual.setCosto(Double.parseDouble(dato_cambio));
+                }
+                else{
+                    lbl_msg.setText("Error. El costo debe ser un número válido y entero.");
+                    return;
+                }
                 break;
             case "cambiar distancia":
-                vuelo_actual.setDistancia(Double.parseDouble(dato_cambio));
+                if (Integer.parseInt(dato_cambio) > distancia_vueloMaxima){
+                    lbl_msg.setText("Error. La distancia máxima de vuelo es de 15,000 km.");
+                    return;
+                }
+                else{
+                    vuelo_actual.setDistancia(Double.parseDouble(dato_cambio));
+                }
                 break;
             case "cambiar tiempo":
                 vuelo_actual.setDuracion(Double.parseDouble(dato_cambio));
@@ -70,8 +94,10 @@ public class EditarVueloController implements Initializable {
                 Aeropuerto new_destino = grafo.findAirport(dato_cambio);
                 vuelo_actual.setDestino(new_destino);
                 break;
-            default:
-                //no se que hacer aquí (supongo que se valida si no ingreso opcion)
+                default:
+                    //no se que hacer aquí (supongo que se valida si no ingreso opcion)
+                lbl_msg.setText("Por favor, seleccione una opción válida.");
+                //ya ta
                 break;
         }
         Stage stage = (Stage) btn_guardar.getScene().getWindow();
