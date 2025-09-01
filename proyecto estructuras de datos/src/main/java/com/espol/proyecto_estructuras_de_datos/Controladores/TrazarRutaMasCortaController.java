@@ -52,6 +52,7 @@ public class TrazarRutaMasCortaController implements Initializable {
         switch (opcionSeleccionada) {
             case "Costo":
                 // Lógica para trazar la ruta más corta basada en costo
+                //verificar que origen y destino estén en la lista
                 lbl_msg.setText("Trazando ruta más corta por Costo...");
                 grafo.setRuta_corta(grafo.rutacostoauxiliar(origen, destino));
                 break;

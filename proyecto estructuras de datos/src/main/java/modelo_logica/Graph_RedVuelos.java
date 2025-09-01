@@ -90,6 +90,12 @@ public class Graph_RedVuelos {
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
+
+        //verificar que ambos aeropuertos estén en la lista
+        if(!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)){
+            return null;
+        }
+
         double[] dist = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
