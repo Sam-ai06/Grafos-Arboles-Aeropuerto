@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 
 /**
@@ -221,6 +222,29 @@ public class Graph_RedVuelos {
         }
         }
         return vuelosregresar;
+    }
+    public List<Aeropuerto> recorridoDFS(Aeropuerto origen, Aeropuerto destino){
+        List<Aeropuerto> aeropuertos =  new LinkedList<>();
+        if(!this.AirportIsInGrafo(origen)||!this.AirportIsInGrafo(destino)){return aeropuertos;}
+        Stack<Aeropuerto> pila_aeropuerto = new Stack<>();
+        pila_aeropuerto.push(origen);
+        while(!pila_aeropuerto.isEmpty()){
+            Aeropuerto actual = pila_aeropuerto.pop();
+            aeropuertos.add(actual);
+            for(Vuelo v:actual.getVuelos()){
+                Aeropuerto vecino = v.getDestino();
+                pila_aeropuerto.push(vecino);
+                if(cmp.compare(destino, vecino)==0)return aeropuertos;
+            }
+        }
+        return aeropuertos;
+    }
+    
+    public void mostrarDFS(List<Aeropuerto> lista){
+        if(lista.isEmpty()){
+            return;
+            
+        }
     }
     public List<Vuelo> rutaduracioncortaauxiliar(Aeropuerto origen,Aeropuerto Destino){
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
