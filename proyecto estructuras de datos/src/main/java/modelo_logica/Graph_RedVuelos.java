@@ -189,6 +189,7 @@ public class Graph_RedVuelos {
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
             return null;
         }
+        if(rutadistanciacorta(origen,Destino)==null){return null;}
 
         List<Aeropuerto> regresar = rutadistanciacorta(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
@@ -207,6 +208,7 @@ public class Graph_RedVuelos {
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
             return null;
         }
+        if(rutacostobajo(origen,Destino)==null){return null;}
         List<Aeropuerto> regresar = rutacostobajo(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
@@ -224,6 +226,7 @@ public class Graph_RedVuelos {
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
             return null;
         }
+        if(rutaduracioncorta(origen,Destino)==null){return null;}
         List<Aeropuerto> regresar = rutaduracioncorta(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
