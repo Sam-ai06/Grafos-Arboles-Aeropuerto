@@ -17,7 +17,7 @@ import modelo_logica.Vuelo;
 
 public class TrazarRutaMasCortaController implements Initializable {
     @FXML
-    private Button btn_trazar, btn_cancelar;
+    private Button btn_trazar, btn_cancelar, btn_trazarDFS;
     @FXML
     private TextField txt_OriginPort, txt_DestinationPort;
     @FXML
@@ -88,5 +88,12 @@ public class TrazarRutaMasCortaController implements Initializable {
 
     public void setEstadisticaController(EstadisticaController estadisticaController) {
         this.estadisticaController = estadisticaController;
+    }
+
+    public void trazarDFS(){
+        Aeropuerto origen = grafo.findAirport(txt_OriginPort.getText().trim());
+        Aeropuerto destino = grafo.findAirport(txt_DestinationPort.getText().trim());
+
+        grafo.mostrarDFS(origen, destino);
     }
 }

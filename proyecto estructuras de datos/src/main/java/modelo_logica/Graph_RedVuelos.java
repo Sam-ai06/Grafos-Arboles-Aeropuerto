@@ -239,13 +239,24 @@ public class Graph_RedVuelos {
         }
         return aeropuertos;
     }
-    
-    public void mostrarDFS(List<Aeropuerto> lista){
+
+    public void mostrarDFS(Aeropuerto origen, Aeropuerto destino){
+        List<Aeropuerto> lista = this.recorridoDFS(origen, destino);
+
         if(lista.isEmpty()){
             return;
-            
+        }
+        if (cmp.compare(destino, lista.get(lista.size()-1)) != 0) {
+            System.out.println("No es posible hacer un recorrido entre el par de aeropuertos.");
+
+        }
+        else{
+            for(Aeropuerto a : lista){
+                System.out.println(a.getCodigo());
+            }
         }
     }
+
     public List<Vuelo> rutaduracioncortaauxiliar(Aeropuerto origen,Aeropuerto Destino){
         if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
             return null;
