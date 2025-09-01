@@ -5,236 +5,263 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.EstadisticaController">
+<AnchorPane prefHeight="650.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.proyecto_estructuras_de_datos.Controladores.EstadisticaController">
     <children>
-        <Label text="Estadísticas del Sistema">
-            <font>
-                <Font name="System Bold" size="24.0" />
-            </font>
-            <VBox.margin>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-            </VBox.margin>
-        </Label>
+        <!-- Header con gradiente azul -->
+        <AnchorPane prefHeight="55.0" prefWidth="500.0" style="-fx-background-color: linear-gradient(to right, #70c6ff, #4797ff );">
+            <children>
+                <Text fill="WHITE" layoutX="21.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estadísticas del Sistema" wrappingWidth="260.294921875">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+            </children>
+        </AnchorPane>
 
-        <VBox spacing="15.0">
+        <!-- Contenido principal -->
+        <VBox layoutY="55.0" prefHeight="595.0" prefWidth="500.0" spacing="15.0">
             <padding>
-                <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
             </padding>
             <children>
 
-                <Label text="Información General">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-
-                <HBox spacing="20.0">
+                <!-- Información General -->
+                <VBox spacing="10.0">
                     <children>
-                        <Label text="Total de Aeropuertos:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Información General">
                             <font>
                                 <Font size="14.0" />
                             </font>
-                        </Label>
-                        <Label fx:id="totalAeropuertosLabel" text="0">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                        </Text>
 
-                <HBox spacing="20.0">
-                    <children>
-                        <Label text="Total de Vuelos:">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="totalVuelosLabel" text="0">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total de Aeropuertos:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="totalAeropuertosLabel" text="0">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
 
-                <HBox spacing="20.0">
-                    <children>
-                        <Label text="Rutas Activas:">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="rutasActivasLabel" text="0">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total de Vuelos:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="totalVuelosLabel" text="0">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rutas Activas:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="rutasActivasLabel" text="0">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
                     </children>
-                </HBox>
+                </VBox>
 
                 <Separator />
 
-                <Label text="Aeropuerto Más Conectado">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-
-                <HBox spacing="20.0">
+                <!-- Aeropuerto Más Conectado -->
+                <VBox spacing="10.0">
                     <children>
-                        <Label text="Nombre:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aeropuerto Más Conectado">
                             <font>
                                 <Font size="14.0" />
                             </font>
-                        </Label>
-                        <Label fx:id="aeropuertoMasConectadoLabel" text="N/A">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                        </Text>
 
-                <HBox spacing="20.0">
-                    <children>
-                        <Label text="Código:">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="codigoMasConectadoLabel" text="N/A">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="aeropuertoMasConectadoLabel" text="N/A">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
 
-                <HBox spacing="20.0">
-                    <children>
-                        <Label text="Ciudad:">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="ciudadMasConectadoLabel" text="N/A">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Código:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="codigoMasConectadoLabel" text="N/A">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
 
-                <HBox spacing="20.0">
-                    <children>
-                        <Label text="Conexiones:">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="conexionesMaxLabel" text="0">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="ciudadMasConectadoLabel" text="N/A">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Conexiones:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="conexionesMaxLabel" text="0">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
                     </children>
-                </HBox>
+                </VBox>
 
                 <Separator />
 
-                <Label text="Última Ruta Calculada">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-
-                <HBox spacing="20.0">
+                <!-- Última Ruta Calculada -->
+                <VBox spacing="10.0">
                     <children>
-                        <Label text="Estado:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Última Ruta Calculada">
                             <font>
                                 <Font size="14.0" />
                             </font>
-                        </Label>
-                        <Label fx:id="estadoDijkstraLabel" text="No hay ruta calculada">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                        </Text>
 
-                <HBox spacing="20.0">
-                    <children>
-                        <Label text="Costo Total:">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="costoMinimoLabel" text="No calculado">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="estadoDijkstraLabel" text="No hay ruta calculada">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
 
-                <HBox spacing="20.0">
-                    <children>
-                        <Label text="Duración Total:">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="duracionMinimaLabel" text="No calculado">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Costo Total:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="costoMinimoLabel" text="No calculado">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="20.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duración Total:">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Text>
+                                <Label fx:id="duracionMinimaLabel" text="No calculado">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
                     </children>
-                </HBox>
+                </VBox>
 
                 <Separator />
 
-                <Label text="Lista de Aeropuertos">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
+                <!-- Lista de Aeropuertos -->
+                <VBox spacing="10.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de Aeropuertos">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
 
-                <ScrollPane prefHeight="80.0" prefWidth="500.0" style="-fx-background-color: transparent;">
-                    <content>
-                        <Label fx:id="detalleAeropuertosLabel" text="Cargando información..." wrapText="true">
+                        <ScrollPane prefHeight="80.0" prefWidth="440.0" style="-fx-background-color: transparent;">
+                            <content>
+                                <Label fx:id="detalleAeropuertosLabel" text="Cargando información..." wrapText="true">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </Label>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+
+                <!-- Botones -->
+                <HBox spacing="15.0" alignment="CENTER">
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                    <children>
+                        <Button fx:id="actualizarBtn" onAction="#actualizarEstadisticas" prefHeight="25.0" prefWidth="120.0"
+                                style="-fx-background-color: linear-gradient(to right, #70c6ff, #4797ff ); -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);"
+                                text="Actualizar" textFill="WHITE">
                             <font>
                                 <Font size="12.0" />
                             </font>
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                        </Label>
-                    </content>
-                </ScrollPane>
-
-                <Separator />
-
-                <HBox spacing="15.0" alignment="CENTER">
-                    <children>
-                        <Button fx:id="actualizarBtn" onAction="#actualizarEstadisticas" prefHeight="35.0" prefWidth="120.0"
-                                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"
-                                text="Actualizar">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
                         </Button>
-                        <Button fx:id="cerrarBtn" onAction="#cerrarVentana" prefHeight="35.0" prefWidth="120.0"
-                                style="-fx-background-color: #757575; -fx-text-fill: white;"
-                                text="Cerrar">
+                        <Button fx:id="cerrarBtn" onAction="#cerrarVentana" prefHeight="25.0" prefWidth="70.0"
+                                style="-fx-background-color: linear-gradient(to right, #70c6ff, #4797ff ); -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);"
+                                text="Cerrar" textFill="WHITE">
                             <font>
-                                <Font size="14.0" />
+                                <Font size="12.0" />
                             </font>
                         </Button>
                     </children>
@@ -243,4 +270,4 @@
             </children>
         </VBox>
     </children>
-</VBox>
+</AnchorPane>
