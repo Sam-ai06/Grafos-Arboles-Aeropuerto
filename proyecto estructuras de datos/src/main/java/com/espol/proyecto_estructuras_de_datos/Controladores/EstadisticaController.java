@@ -137,7 +137,6 @@ public class EstadisticaController implements Initializable {
 
             List<Vuelo> vuelosLatam = grafo.vueloaerolienas("LATAM");
             if (vuelosLatam != null) {
-                System.out.println("Vuelos de LATAM encontrados: " + vuelosLatam.size());
             }
 
             if (origenActual != null && destinoActual != null) {
