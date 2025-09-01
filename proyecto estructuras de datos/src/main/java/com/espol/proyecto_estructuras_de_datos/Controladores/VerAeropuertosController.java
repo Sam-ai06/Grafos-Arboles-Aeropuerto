@@ -156,17 +156,30 @@ public class VerAeropuertosController implements Initializable{
         crearArcos(posiciones,radioCentral,radioSecundario);
         // Después crear los nodos (para que queden adelante)
         Circle nodoCentral = new Circle(centroX, centroY, radioCentral, Color.RED);
-        Tooltip.install(nodoCentral, new Tooltip(central.getNombre()+"\n"+central.getCodigo()));
+        crearTooltip(nodoCentral, central);
+
+        //Tooltip.install(nodoCentral, new Tooltip(central.getNombre()+"\n"+central.getCodigo()));
         espacio_grafo.getChildren().add(nodoCentral);
 
         for (int i = 1; i < aeropuertos.size(); i++) {
             double[] pos = posiciones.get(aeropuertos.get(i));
             Circle nodo = new Circle(pos[0], pos[1], radioSecundario, Color.BLUE);
-            Tooltip.install(nodo, new Tooltip(aeropuertos.get(i).getNombre()+"\n"+aeropuertos.get(i).getCodigo()));
+            crearTooltip(nodo,aeropuertos.get(i));
             espacio_grafo.getChildren().add(nodo);
         }
     }
+    public void crearTooltip(Circle nodo,Aeropuerto airport){
+        Tooltip tooltip = new Tooltip(
+            "✈ Aeropuerto: " + airport.getNombre() + "\n" +
+            "Código: " + airport.getCodigo() + "\n" +
+            "Ciudad: " + airport.getCiudad() + "\n" +
+            "País: " + airport.getPais()
+        );
+        tooltip.setStyle("-fx-font-size: 14px; -fx-background-color: lightyellow; -fx-text-fill: black;");
 
+        // Tooltip al pasar mouse
+        Tooltip.install(nodo, tooltip);
+    }
     private void crearArcos(Map<Aeropuerto, double[]> posiciones, double radioCentral, double radioSecundario) {
             
         for (Aeropuerto Origin : grafo.getAeropuertos()) {

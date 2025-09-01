@@ -8,3 +8,4 @@ Sydney Kingsford Smith Airport,SYD,Sydney,Australia
 Frankfurt am Main Airport,FRA,Frankfurt,Germany
 Dubai International Airport,DXB,Dubai,UAE
 Toronto Pearson International Airport,YYZ,Toronto,Canada
+Aeropuerto Internacional Mariscal Sucre,UIO,Quito,Ecuador
