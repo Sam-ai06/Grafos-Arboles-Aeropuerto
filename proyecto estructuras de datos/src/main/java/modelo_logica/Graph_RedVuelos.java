@@ -230,11 +230,16 @@ public class Graph_RedVuelos {
         pila_aeropuerto.push(origen);
         while(!pila_aeropuerto.isEmpty()){
             Aeropuerto actual = pila_aeropuerto.pop();
-            aeropuertos.add(actual);
+            aeropuertos.add(actual);          
+            if(!actual.isIsVisited()){
             for(Vuelo v:actual.getVuelos()){
                 Aeropuerto vecino = v.getDestino();
                 pila_aeropuerto.push(vecino);
-                if(cmp.compare(destino, vecino)==0)return aeropuertos;
+                if(cmp.compare(destino, vecino)==0){
+                    aeropuertos.add(destino);
+                    return aeropuertos;
+                }
+                actual.setIsVisited(true);}
             }
         }
         return aeropuertos;
@@ -243,10 +248,12 @@ public class Graph_RedVuelos {
     public void mostrarDFS(Aeropuerto origen, Aeropuerto destino){
         List<Aeropuerto> lista = this.recorridoDFS(origen, destino);
 
-        if(lista.isEmpty()){
-            return;
+        if(lista.isEmpty() ){
+            System.out.println("la lista esta vacia bro");
+            
         }
-        if (cmp.compare(destino, lista.get(lista.size()-1)) != 0) {
+        if(!lista.contains(destino)){System.out.println("No es posible hacer un recorrido entre el par de aeropuertos.");}
+        if (cmp.compare(destino, lista.get(lista.size()-1)) != 0 || lista.size() == 1) {
             System.out.println("No es posible hacer un recorrido entre el par de aeropuertos.");
 
         }

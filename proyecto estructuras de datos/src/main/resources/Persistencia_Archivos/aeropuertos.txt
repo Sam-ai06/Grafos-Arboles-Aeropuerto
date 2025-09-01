@@ -9,3 +9,5 @@ Frankfurt am Main Airport,FRA,Frankfurt,Germany
 Dubai International Airport,DXB,Dubai,UAE
 Toronto Pearson International Airport,YYZ,Toronto,Canada
 Aeropuerto Internacional Mariscal Sucre,UIO,Quito,Ecuador
+Prueba,AYU,RUSIA,FIEC
+COSA,COS,russs,cosita
