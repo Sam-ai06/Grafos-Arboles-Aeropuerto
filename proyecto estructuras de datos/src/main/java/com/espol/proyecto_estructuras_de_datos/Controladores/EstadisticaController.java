@@ -110,22 +110,28 @@ public class EstadisticaController implements Initializable {
                 ciudadMasConectadoLabel.setText("N/A");
             }
 
-            if (origenActual != null && destinoActual != null) {
-                int costoTotal = grafo.costoviaje(origenActual, destinoActual);
-                int duracionTotal = grafo.duracionviaje(origenActual, destinoActual);
-                int distanciaTotal = grafo.distanciaviaje(origenActual, destinoActual);
+            if (grafo.isDijkstra() && grafo.getRuta_corta() != null && !grafo.getRuta_corta().isEmpty()) {
+                List<Vuelo> rutaCalculada = grafo.getRuta_corta();
 
-                if (costoTotal != -1 && duracionTotal != -1 && distanciaTotal != -1) {
-                    costoMinimoLabel.setText("$" + costoTotal);
-                    duracionMinimaLabel.setText(duracionTotal + " horas");
-                    estadoDijkstraLabel.setText("Ruta calculada (Distancia: " + distanciaTotal + " km)");
-                    estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#28a745"));
-                } else {
-                    costoMinimoLabel.setText("No se encontró ruta");
-                    duracionMinimaLabel.setText("No se encontró ruta");
-                    estadoDijkstraLabel.setText("No hay ruta disponible");
-                    estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#dc3545"));
+                int costoTotal = 0;
+                int duracionTotal = 0;
+                int distanciaTotal = 0;
+
+                for (Vuelo vuelo : rutaCalculada) {
+                    costoTotal += vuelo.getCosto();
+                    duracionTotal += vuelo.getDuracion();
+                    distanciaTotal += vuelo.getDistancia();
                 }
+
+                costoMinimoLabel.setText("$" + costoTotal);
+                duracionMinimaLabel.setText(duracionTotal + " horas");
+
+                Aeropuerto origen = rutaCalculada.get(0).getOrigen();
+                Aeropuerto destino = rutaCalculada.get(rutaCalculada.size() - 1).getDestino();
+
+                estadoDijkstraLabel.setText("Ruta: " + origen.getCodigo() + " → " + destino.getCodigo() +
+                        " (" + rutaCalculada.size() + " vuelos, " + distanciaTotal + " km)");
+                estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#28a745"));
             } else {
                 costoMinimoLabel.setText("No calculado");
                 duracionMinimaLabel.setText("No calculado");
@@ -134,17 +140,6 @@ public class EstadisticaController implements Initializable {
             }
 
             detalleAeropuertosLabel.setText(grafo.DetalleAeropuertos());
-
-            List<Vuelo> vuelosLatam = grafo.vueloaerolienas("LATAM");
-            if (vuelosLatam != null) {
-            }
-
-            if (origenActual != null && destinoActual != null) {
-                int distancia = grafo.distanciaviaje(origenActual, destinoActual);
-                if (distancia != -1) {
-                    System.out.println("Distancia total del viaje: " + distancia + " km");
-                }
-            }
 
         } catch (Exception e) {
             System.err.println("Error actualizando estadísticas: " + e.getMessage());
