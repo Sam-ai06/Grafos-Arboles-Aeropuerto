@@ -53,7 +53,7 @@
       <Pane fx:id="espacio_grafo" layoutX="423.0" layoutY="12.0" prefHeight="612.0" prefWidth="776.0" style="-fx-background-color: #FFFDF7;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="423.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="12.0" />
       <Button layoutX="637.0" layoutY="649.0" mnemonicParsing="false" onAction="#ActualizarGrafoView" prefHeight="44.0" prefWidth="143.0" style="-fx-background-color: #C7C7C7; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Actualizar Grafo" AnchorPane.bottomAnchor="31.0" />
 
-      <Button layoutX="454.0" layoutY="647.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="156.0" style="-fx-background-color: #C7C7C7; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Estadísticas" textFill="#0a0202" AnchorPane.bottomAnchor="30.0">
+      <Button fx:id="btn_estadisticas" layoutX="454.0" layoutY="647.0" mnemonicParsing="false" onAction="#switchToEstadisticasView" prefHeight="47.0" prefWidth="156.0" style="-fx-background-color: #C7C7C7; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" text="Estadísticas" textFill="#0a0202" AnchorPane.bottomAnchor="30.0">
          <font>
             <Font size="20.0" />
          </font></Button>

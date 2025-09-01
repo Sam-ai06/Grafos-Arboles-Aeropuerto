@@ -32,7 +32,7 @@ import modelo_logica.Vuelo;
 
 public class VerAeropuertosController implements Initializable{
     @FXML
-    private Button btn_salir, btn_editar, btn_eliminar, btn_trazar, btn_anadir, btn_conectarAero, btn_eliminarVuelo;
+    private Button btn_salir, btn_editar, btn_eliminar, btn_trazar, btn_anadir, btn_conectarAero, btn_eliminarVuelo, btn_estadisticas;
     @FXML
     private Pane espacio_grafo;
     public Graph_RedVuelos grafo;
@@ -459,6 +459,31 @@ public class VerAeropuertosController implements Initializable{
             actualizarGrafo();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void switchToEstadisticasView() {
+        try {
+            System.out.println("Botón de estadísticas presionado");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/EstadisticasView.fxml"));
+            Parent root = loader.load();
+
+            EstadisticaController ventana = loader.getController();
+            ventana.setGrafo(grafo);
+
+            Stage stage = new Stage();
+            stage.setTitle("Estadísticas del Sistema");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println("Error al cargar estadísticas: " + ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error general: " + ex.getMessage());
         }
     }
 }
