@@ -169,17 +169,55 @@ public class VerAeropuertosController implements Initializable{
         }
     }
     public void crearTooltip(Circle nodo,Aeropuerto airport){
+        String vuelos = "";
+        for(Vuelo v: airport.getVuelos()){
+            vuelos = vuelos+ "Vuelo: "+v.getNumeroVuelo()+"\n";
+            
+        }
         Tooltip tooltip = new Tooltip(
-            "✈ Aeropuerto: " + airport.getNombre() + "\n" +
-            "Código: " + airport.getCodigo() + "\n" +
-            "Ciudad: " + airport.getCiudad() + "\n" +
-            "País: " + airport.getPais()
+                "✈ Aeropuerto: " + airport.getNombre() + "\n" +
+                "Código: " + airport.getCodigo() + "\n" +
+                "Ciudad: " + airport.getCiudad() + "\n" +
+                "País: " + airport.getPais()+ "\n"+
+                "--+ Sus vuelos +--"+"\n"+vuelos
+                
+                  
         );
         tooltip.setStyle("-fx-font-size: 14px; -fx-background-color: lightyellow; -fx-text-fill: black;");
 
         // Tooltip al pasar mouse
         Tooltip.install(nodo, tooltip);
     }
+    public void crearTooltipArista(Line hitbox, Vuelo vuelo) {
+    // Crear texto del tooltip con saltos de línea y símbolos
+    String texto = "✈ Vuelo: " + vuelo.getNumeroVuelo() + "\n" +
+                   "Distancia: " + vuelo.getDistancia() + " km\n" +
+                   "Duración: " + vuelo.getDuracion() + " h\n" +
+                   "Costo: $" + vuelo.getCosto()+"\n"+
+                   "Aerolínea: "+vuelo.getAerolinea();
+
+    Tooltip tooltip = new Tooltip(texto);
+
+    // Aplicar estilo CSS al tooltip
+    tooltip.setStyle(
+        "-fx-font-size: 13px;" +
+        "-fx-font-weight: bold;" +
+        "-fx-background-color: linear-gradient(to bottom, #f0f8ff, #e6f2ff);" +
+        "-fx-text-fill: #333333;" +
+        "-fx-border-color: #3399ff;" +
+        "-fx-border-width: 1;" +
+        "-fx-padding: 5;"
+    );
+
+    // Instalar tooltip sobre el hitbox
+    Tooltip.install(hitbox, tooltip);
+
+    // Opcional: mejorar la zona sensible
+    hitbox.setStrokeWidth(10);       // ancho mayor para detectar mouse
+    hitbox.setStroke(Color.TRANSPARENT); // invisible
+    hitbox.setPickOnBounds(false);
+    }
+
     private void crearArcos(Map<Aeropuerto, double[]> posiciones, double radioCentral, double radioSecundario) {
             
         for (Aeropuerto Origin : grafo.getAeropuertos()) {
@@ -223,8 +261,13 @@ public class VerAeropuertosController implements Initializable{
                 else
                     arco.setStroke(Color.BLACK);
                 arco.setStrokeWidth(2);
-                espacio_grafo.getChildren().add(arco);
-                Tooltip.install(arco, new Tooltip(vuelo.getNumeroVuelo()+"\n"+vuelo.getDistancia()+"km"+"\n"+vuelo.getAerolinea()));
+                //linea invisible para hoover
+                Line hitbox = new Line(posOrigin[0], posOrigin[1], posDestiny[0], posDestiny[1]);
+                crearTooltipArista(hitbox,vuelo);
+
+                // Agregar ambas líneas al grafo (hitbox primero, luego la visible)
+                espacio_grafo.getChildren().addAll(hitbox, arco);
+                
                 dibujarFlecha(posOrigin, posDestiny, radioDestino);
             }
         }
