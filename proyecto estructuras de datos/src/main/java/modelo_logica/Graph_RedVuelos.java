@@ -86,16 +86,17 @@ public class Graph_RedVuelos {
     //estos metodos retornan los aeropuertos, los dejé aquí por si acaso pero estamos usando los auxiliares que retornan vuelos
     
     public List<Aeropuerto> rutadistanciacorta(Aeropuerto origen, Aeropuerto Destino) {
+        if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
+            return null;
+        }
         int n = aeropuertos.size();
         if (cmp.compare(origen, Destino) == 0) {
             return null;
         }
-
         //verificar que ambos aeropuertos estén en la lista
         if(!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)){
             return null;
         }
-
         double[] dist = new double[n];
         int[] predecesor = new int[n];
         boolean[] visitado = new boolean[n];
@@ -136,6 +137,10 @@ public class Graph_RedVuelos {
         return regresar;
     }
     public List<Aeropuerto> rutaduracioncorta(Aeropuerto origen,Aeropuerto Destino){
+        //validar que ambos aeropuertos estén en la lista
+        if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
+            return null;
+        }
         int n = aeropuertos.size();
         if (cmp.compare(origen, Destino) == 0) {
             return null;
@@ -180,6 +185,11 @@ public class Graph_RedVuelos {
     }
 
     public List<Vuelo> rutadistanciaauxiliar(Aeropuerto origen,Aeropuerto Destino){
+
+        if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
+            return null;
+        }
+
         List<Aeropuerto> regresar = rutadistanciacorta(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
@@ -194,6 +204,9 @@ public class Graph_RedVuelos {
         return vuelosregresar;
     }
     public List<Vuelo> rutacostoauxiliar(Aeropuerto origen,Aeropuerto Destino){
+        if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
+            return null;
+        }
         List<Aeropuerto> regresar = rutacostobajo(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
@@ -208,6 +221,9 @@ public class Graph_RedVuelos {
         return vuelosregresar;
     }
     public List<Vuelo> rutaduracioncortaauxiliar(Aeropuerto origen,Aeropuerto Destino){
+        if (!AirportIsInGrafo(origen) || !AirportIsInGrafo(Destino)) {
+            return null;
+        }
         List<Aeropuerto> regresar = rutaduracioncorta(origen,Destino);
         List<Vuelo> vuelosregresar = new LinkedList<>();
         for (int i = 0; i < regresar.size() - 1; i++) {
