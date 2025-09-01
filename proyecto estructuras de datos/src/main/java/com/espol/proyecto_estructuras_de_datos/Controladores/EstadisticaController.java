@@ -31,6 +31,8 @@ public class EstadisticaController implements Initializable {
     @FXML private Button cerrarBtn;
 
     private Graph_RedVuelos grafo;
+    private Aeropuerto origenActual;
+    private Aeropuerto destinoActual;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,6 +62,12 @@ public class EstadisticaController implements Initializable {
         }
     }
 
+    public void setRutaCalculada(Aeropuerto origen, Aeropuerto destino) {
+        this.origenActual = origen;
+        this.destinoActual = destino;
+        actualizarEstadisticas();
+    }
+
     @FXML
     private void actualizarEstadisticas() {
         if (grafo == null) {
@@ -67,137 +75,82 @@ public class EstadisticaController implements Initializable {
         }
 
         try {
-            List<Aeropuerto> aeropuertos = grafo.getAeropuertos();
+            totalAeropuertosLabel.setText(String.valueOf(grafo.getAeropuertos().size()));
+            totalVuelosLabel.setText(String.valueOf(grafo.TotalVuelos()));
+            rutasActivasLabel.setText(String.valueOf(grafo.TotalVuelos()));
 
-            totalAeropuertosLabel.setText(String.valueOf(aeropuertos.size()));
+            Aeropuerto masConectado = grafo.aeropuertomasconectado();
 
-            int totalVuelos = contarTotalVuelos();
-            totalVuelosLabel.setText(String.valueOf(totalVuelos));
+            if (masConectado != null) {
+                String nombre = "N/A";
+                if (masConectado.getNombre() != null) {
+                    nombre = masConectado.getNombre();
+                }
 
-            int rutasActivas = contarRutasUnicas();
-            rutasActivasLabel.setText(String.valueOf(rutasActivas));
+                String codigo = "N/A";
+                if (masConectado.getCodigo() != null) {
+                    codigo = masConectado.getCodigo();
+                }
 
-            actualizarAeropuertoMasConectado();
+                String ciudad = "N/A";
+                if (masConectado.getCiudad() != null) {
+                    ciudad = masConectado.getCiudad();
+                }
 
-            actualizarInformacionDijkstra();
+                int conexiones = grafo.numconexionesaeropuerto(masConectado);
 
-            actualizarDetalleAeropuertos();
+                aeropuertoMasConectadoLabel.setText(nombre);
+                codigoMasConectadoLabel.setText(codigo);
+                conexionesMaxLabel.setText(String.valueOf(conexiones));
+                ciudadMasConectadoLabel.setText(ciudad);
+            } else {
+                aeropuertoMasConectadoLabel.setText("N/A");
+                codigoMasConectadoLabel.setText("N/A");
+                conexionesMaxLabel.setText("0");
+                ciudadMasConectadoLabel.setText("N/A");
+            }
+
+            if (origenActual != null && destinoActual != null) {
+                int costoTotal = grafo.costoviaje(origenActual, destinoActual);
+                int duracionTotal = grafo.duracionviaje(origenActual, destinoActual);
+                int distanciaTotal = grafo.distanciaviaje(origenActual, destinoActual);
+
+                if (costoTotal != -1 && duracionTotal != -1 && distanciaTotal != -1) {
+                    costoMinimoLabel.setText("$" + costoTotal);
+                    duracionMinimaLabel.setText(duracionTotal + " horas");
+                    estadoDijkstraLabel.setText("Ruta calculada (Distancia: " + distanciaTotal + " km)");
+                    estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#28a745"));
+                } else {
+                    costoMinimoLabel.setText("No se encontró ruta");
+                    duracionMinimaLabel.setText("No se encontró ruta");
+                    estadoDijkstraLabel.setText("No hay ruta disponible");
+                    estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#dc3545"));
+                }
+            } else {
+                costoMinimoLabel.setText("No calculado");
+                duracionMinimaLabel.setText("No calculado");
+                estadoDijkstraLabel.setText("No hay ruta calculada");
+                estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#6c757d"));
+            }
+
+            detalleAeropuertosLabel.setText(grafo.DetalleAeropuertos());
+
+            List<Vuelo> vuelosLatam = grafo.vueloaerolienas("LATAM");
+            if (vuelosLatam != null) {
+                System.out.println("Vuelos de LATAM encontrados: " + vuelosLatam.size());
+            }
+
+            if (origenActual != null && destinoActual != null) {
+                int distancia = grafo.distanciaviaje(origenActual, destinoActual);
+                if (distancia != -1) {
+                    System.out.println("Distancia total del viaje: " + distancia + " km");
+                }
+            }
 
         } catch (Exception e) {
             System.err.println("Error actualizando estadísticas: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    private int contarTotalVuelos() {
-        int total = 0;
-        if (grafo != null && grafo.getAeropuertos() != null) {
-            for (Aeropuerto aeropuerto : grafo.getAeropuertos()) {
-                if (aeropuerto.getVuelos() != null) {
-                    total += aeropuerto.getVuelos().size();
-                }
-            }
-        }
-        return total;
-    }
-
-    private int contarRutasUnicas() {
-        int rutas = 0;
-        if (grafo != null && grafo.getAeropuertos() != null) {
-            for (Aeropuerto aeropuerto : grafo.getAeropuertos()) {
-                if (aeropuerto.getVuelos() != null) {
-                    rutas += aeropuerto.getVuelos().size();
-                }
-            }
-        }
-        return rutas;
-    }
-
-    private void actualizarAeropuertoMasConectado() {
-        if (grafo == null || grafo.getAeropuertos() == null || grafo.getAeropuertos().isEmpty()) {
-            aeropuertoMasConectadoLabel.setText("N/A");
-            codigoMasConectadoLabel.setText("N/A");
-            conexionesMaxLabel.setText("0");
-            ciudadMasConectadoLabel.setText("N/A");
-            return;
-        }
-
-        Aeropuerto masConectado = null;
-        int maxConexiones = 0;
-
-        for (Aeropuerto aeropuerto : grafo.getAeropuertos()) {
-            int conexiones = (aeropuerto.getVuelos() != null) ? aeropuerto.getVuelos().size() : 0;
-            if (conexiones > maxConexiones) {
-                maxConexiones = conexiones;
-                masConectado = aeropuerto;
-            }
-        }
-
-        if (masConectado != null) {
-            aeropuertoMasConectadoLabel.setText(masConectado.getNombre() != null ? masConectado.getNombre() : "N/A");
-            codigoMasConectadoLabel.setText(masConectado.getCodigo() != null ? masConectado.getCodigo() : "N/A");
-            conexionesMaxLabel.setText(String.valueOf(maxConexiones));
-            ciudadMasConectadoLabel.setText(masConectado.getCiudad() != null ? masConectado.getCiudad() : "N/A");
-        } else {
-            aeropuertoMasConectadoLabel.setText("N/A");
-            codigoMasConectadoLabel.setText("N/A");
-            conexionesMaxLabel.setText("0");
-            ciudadMasConectadoLabel.setText("N/A");
-        }
-    }
-
-    private void actualizarInformacionDijkstra() {
-
-        if (grafo != null && grafo.getRuta_corta() != null && !grafo.getRuta_corta().isEmpty()) {
-            int costoTotal = 0;
-            int duracionTotal = 0;
-
-            for (Vuelo vuelo : grafo.getRuta_corta()) {
-                costoTotal += vuelo.getCosto();
-                duracionTotal += vuelo.getDuracion();
-            }
-
-            costoMinimoLabel.setText("$" + costoTotal);
-            duracionMinimaLabel.setText(duracionTotal + " minutos");
-            estadoDijkstraLabel.setText("Ruta calculada (" + grafo.getRuta_corta().size() + " vuelos)");
-            estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#28a745"));
-
-        } else {
-            costoMinimoLabel.setText("No calculado");
-            duracionMinimaLabel.setText("No calculado");
-            estadoDijkstraLabel.setText("No hay ruta calculada");
-            estadoDijkstraLabel.setTextFill(javafx.scene.paint.Color.web("#6c757d"));
-        }
-    }
-
-    private void actualizarDetalleAeropuertos() {
-        StringBuilder detalle = new StringBuilder();
-
-        if (grafo == null || grafo.getAeropuertos() == null) {
-            detalleAeropuertosLabel.setText("Error: No se pudo cargar la información del grafo.");
-            return;
-        }
-
-        detalle.append("Lista de aeropuertos registrados:\n\n");
-
-        for (Aeropuerto aeropuerto : grafo.getAeropuertos()) {
-            if (aeropuerto != null) {
-                detalle.append("• ").append(aeropuerto.getNombre() != null ? aeropuerto.getNombre() : "Sin nombre")
-                        .append(" (").append(aeropuerto.getCodigo() != null ? aeropuerto.getCodigo() : "Sin código").append(")")
-                        .append(" - ").append(aeropuerto.getCiudad() != null ? aeropuerto.getCiudad() : "Sin ciudad")
-                        .append(", ").append(aeropuerto.getPais() != null ? aeropuerto.getPais() : "Sin país");
-
-                int numVuelos = (aeropuerto.getVuelos() != null) ? aeropuerto.getVuelos().size() : 0;
-                detalle.append(" - ").append(numVuelos).append(" vuelos")
-                        .append("\n");
-            }
-        }
-
-        if (grafo.getAeropuertos().isEmpty()) {
-            detalle.append("No hay aeropuertos registrados en el sistema.");
-        }
-
-        detalleAeropuertosLabel.setText(detalle.toString());
     }
 
     @FXML

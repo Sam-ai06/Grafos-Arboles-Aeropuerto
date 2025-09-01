@@ -456,5 +456,66 @@ public class Graph_RedVuelos {
         this.solicitaDijkstra = solicitaDijkstra;
     }
 
-    
+    //da el detalle de cada aeropuerto
+    public String DetalleAeropuertos() {
+        if (aeropuertos == null) {
+            return "Error: No se pudo cargar la información del grafo.";
+        }
+
+        StringBuilder detalle = new StringBuilder();
+        detalle.append("Lista de aeropuertos registrados:\n\n");
+
+        if (aeropuertos.isEmpty()) {
+            detalle.append("No hay aeropuertos registrados en el sistema.");
+        } else {
+            for (Aeropuerto aeropuerto : aeropuertos) {
+                if (aeropuerto != null) {
+                    String nombre = "Sin nombre";
+                    if (aeropuerto.getNombre() != null) {
+                        nombre = aeropuerto.getNombre();
+                    }
+
+                    String codigo = "Sin código";
+                    if (aeropuerto.getCodigo() != null) {
+                        codigo = aeropuerto.getCodigo();
+                    }
+
+                    String ciudad = "Sin ciudad";
+                    if (aeropuerto.getCiudad() != null) {
+                        ciudad = aeropuerto.getCiudad();
+                    }
+
+                    String pais = "Sin país";
+                    if (aeropuerto.getPais() != null) {
+                        pais = aeropuerto.getPais();
+                    }
+
+                    int numVuelos = 0;
+                    if (aeropuerto.getVuelos() != null) {
+                        numVuelos = aeropuerto.getVuelos().size();
+                    }
+
+                    detalle.append("• ").append(nombre)
+                            .append(" (").append(codigo).append(")")
+                            .append(" - ").append(ciudad)
+                            .append(", ").append(pais)
+                            .append(" - ").append(numVuelos).append(" vuelos\n");
+                }
+            }
+        }
+
+        return detalle.toString();
+    }
+
+    public int TotalVuelos() {
+        int total = 0;
+        if (aeropuertos != null) {
+            for (Aeropuerto aeropuerto : aeropuertos) {
+                if (aeropuerto.getVuelos() != null) {
+                    total += aeropuerto.getVuelos().size();
+                }
+            }
+        }
+        return total;
+    }
 }
