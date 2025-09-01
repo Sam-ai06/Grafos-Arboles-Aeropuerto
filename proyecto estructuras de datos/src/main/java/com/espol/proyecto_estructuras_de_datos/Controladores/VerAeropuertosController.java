@@ -465,7 +465,6 @@ public class VerAeropuertosController implements Initializable{
     @FXML
     public void switchToEstadisticasView() {
         try {
-            System.out.println("Botón de estadísticas presionado");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto_estructuras_de_datos/EstadisticasView.fxml"));
             Parent root = loader.load();
 

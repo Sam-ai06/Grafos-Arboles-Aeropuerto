@@ -34,7 +34,6 @@ public class EstadisticaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("EstadisticaController inicializado");
         if (grafo == null) {
             inicializarValoresPorDefecto();
         }
@@ -55,34 +54,25 @@ public class EstadisticaController implements Initializable {
     }
 
     public void setGrafo(Graph_RedVuelos grafo) {
-        System.out.println("Grafo recibido en EstadisticaController");
         this.grafo = grafo;
         if (grafo != null) {
-            System.out.println("Actualizando estadísticas con " + grafo.getAeropuertos().size() + " aeropuertos");
             actualizarEstadisticas();
-        } else {
-            System.out.println("Grafo es vacio!");
         }
     }
 
     @FXML
     private void actualizarEstadisticas() {
-        System.out.println("Método actualizarEstadisticas llamado");
-
         if (grafo == null) {
-            System.out.println("Grafo es vacio, no se pueden actualizar estadísticas");
             return;
         }
 
         try {
             List<Aeropuerto> aeropuertos = grafo.getAeropuertos();
-            System.out.println("Procesando " + aeropuertos.size() + " aeropuertos");
 
             totalAeropuertosLabel.setText(String.valueOf(aeropuertos.size()));
 
             int totalVuelos = contarTotalVuelos();
             totalVuelosLabel.setText(String.valueOf(totalVuelos));
-            System.out.println("Total vuelos: " + totalVuelos);
 
             int rutasActivas = contarRutasUnicas();
             rutasActivasLabel.setText(String.valueOf(rutasActivas));
@@ -92,8 +82,6 @@ public class EstadisticaController implements Initializable {
             actualizarInformacionDijkstra();
 
             actualizarDetalleAeropuertos();
-
-            System.out.println("Estadísticas actualizadas correctamente");
 
         } catch (Exception e) {
             System.err.println("Error actualizando estadísticas: " + e.getMessage());
